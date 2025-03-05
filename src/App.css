@@ -1,16 +1,51 @@
 body,
 html {
   margin: 0;
+  font-family: "Inter", "Lora", "Merriweather";
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1; /* Pushes footer down */
 }
 
 .logo {
   width: 80px;
-
   margin-top: 20px;
+  display: flex;
 }
 
 .header {
   margin-left: 50px;
+  font-family: "Inter", "Lora", "Merriweather";
+}
+
+.footer-container {
+  width: 100%;
+  height: 150px;
+}
+
+.footer-container hr {
+  border: none;
+  height: 1px;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 8px 0;
+  width: 95%;
+  margin: auto;
+}
+
+.aboutPage {
+  margin-left: 50px;
+}
+
+.aboutTitle {
+  color: rgb(129, 128, 128);
+  font-weight: 400;
 }
 
 .title {
@@ -22,7 +57,7 @@ html {
 }
 
 .titlesnippet {
-  font-size: 2.5vh;
+  font-size: 17px;
   font-weight: 300;
   color: rgb(91, 90, 90);
 }
@@ -34,7 +69,26 @@ html {
   color: white;
   margin-top: 10px;
   border-radius: 10px;
-  font-size: 1.8vh;
+  font-size: 15px;
+  white-space: nowrap;
+  min-width: 130px;
+  min-height: 30px;
+  max-width: 180px;
+}
+
+.learnMoreButton {
+  background-color: black;
+  height: 5vh;
+  width: 20vw;
+  color: white;
+  margin-top: -300px;
+  border-radius: 10px;
+  font-size: 15px;
+  white-space: nowrap;
+  min-width: 130px;
+  min-height: 30px;
+  border: none;
+  max-width: 180px;
 }
 
 .mainBodyPic {
@@ -42,7 +96,7 @@ html {
 }
 
 .lambPicMain {
-  height: 50vh;
+  width: 80vw;
   margin: auto;
   padding: 50px;
   align-items: center;
@@ -54,6 +108,26 @@ html {
   width: 90vw;
   margin-left: 20px;
   margin-bottom: 100px;
+}
+
+.bottomBody{
+  display: block;
+  width: 90vw;
+  margin-left: 20px;
+  margin-bottom: 100px;
+}
+
+.footer-title {
+  margin-left: 20px;
+  font-weight: 400;
+}
+
+.footer-links {
+  position: fixed;
+  margin: 20px;
+  right:0;
+  bottom: 0;
+  list-style: none;
 }
 
 .mainBodyTitle {
@@ -68,72 +142,74 @@ html {
 .cowPgMain {
   float: left;
   width: 30vw;
+  
 }
 .cowsPicMain {
   float: right;
   width: 50vw;
+  
 }
 
-.learnMoreButton {
-  background-color: rgb(201, 200, 200);
-  border-radius: 8px;
-  font-size: 2vh;
-  padding: 5px;
-  margin-left: 5vw;
-  margin-top: 30px;
-  color: rgb(0, 0, 0);
-  border-style: none;
-  width: 10vw;
-  height: 5vh;
+.learnMore {
+  position: absolute;
+  right: 130px;
+  top: 40px;
+  color: rgb(111, 111, 111);
+}
+.learnMore:hover {
+  cursor: pointer;
+}
+
+.aboutPg {
+  width: 38%;
+  display: absolute;
+  left: 0;
+}
+
+.twoChickens {
+  position: absolute;
+  right: 0;
+  top: 165px;
+  margin: 20px;
+  width: 50%;
+  display: flex;
 }
 
 .menu-image {
   margin-left: -2px;
   margin-top: -2px;
-  width: 5vw;
-  height: 7vh;
-}
-
-button {
-  border: none;
-}
-
-.dropdown-container {
-  position: fixed;
-  right: 0;
-  display: inline-block;
+  width: 50px;
+  height: 50px;
 }
 
 .dropdown-menu {
+  position: absolute;
+  right: 50px;
+  top: 30px;
   cursor: pointer;
-
   border-radius: 5px;
   text-align: center;
   object-fit: cover;
-  margin-right: 50px;
-  margin-top: 30px;
-  width: 4.6vw;
-  height: 6.5vh;
+  width: 46px;
+  height: 46px;
   border-radius: 8px;
-  border: none;
-  background: none;
-  outline: none;
+  font-family: "Inter", "Lora", "Merriweather";
 }
 
 .dropdown-menu:hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3),
-    0 0 12px 3px rgba(141, 138, 144, 0.9);
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3), 0 0 4px 2px rgba(141, 138, 144, 0.9);
 }
 
 .dropdown-content {
-  position: fixed;
-  top: 86px;
-  right: 49px;
+  position: absolute;
+  top: 100%;
+  right: -200px;
   background: white;
   font-family: "Inter", "Lora", "Merriweather";
-  padding: 10px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
   min-width: 150px;
+  width: 200px;
+  padding: 5px;
   border-radius: 5px;
   z-index: 1000;
   text-align: center;
@@ -141,16 +217,86 @@ button {
 
 .menu-item {
   padding: 5px;
+  color: rgb(0, 0, 0);
+  width: 100px;
 }
 
 .menu-item:hover {
   cursor: pointer;
   background-color: lightgray;
+  color: rgb(0, 0, 0);
 }
 
 .dropdown-content hr {
   border: none;
   height: 1px;
-  background-color: #ccc; /* Light gray divider */
-  margin: 8px 0; /* Spacing above and below */
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 8px 0;
+}
+
+.contact-form {
+  width: 80%;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin: 20px;
+}
+
+.submit-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 98%;
+  height: 60px;
+  display: block;
+  margin-top: 30px;
+  margin-left: 17px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.submit-button:hover {
+  background-color: rgb(47, 47, 47);
+  cursor: pointer;
+}
+
+.name-fields {
+  display: flex;
+  gap: 20px;
+}
+
+.name-fields .form-group {
+  flex: 1;
+}
+
+.contact-form input {
+  margin-top: 20px;
+  height: 30px;
+  box-shadow: 0px 0px 6px rgba(52, 52, 52, 0.755);
+  border-radius: 10px;
+  border: none;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 8px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.message-field {
+  font-family: "Inter", "Lora", "Merriweather";
+  box-shadow: 0px 0px 6px rgba(52, 52, 52, 0.755);
+  border-radius: 10px;
+  border: none;
+  margin-top: 20px;
 }
