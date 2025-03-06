@@ -21,7 +21,7 @@ export default function Footer() {
               <li>View Account</li>
             </ul>
             <ul className="column2">
-              <li style={{color:"black"}}>About Us</li>
+              <li onClick={()=>navigate("/aboutcontact#aboutPage")} style={{color:"black"}}>About Us</li>
               <li>Available Animals</li>
               <li>Learn About Hosting</li>
             </ul>

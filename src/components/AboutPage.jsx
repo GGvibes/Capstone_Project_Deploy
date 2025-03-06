@@ -13,10 +13,19 @@ export default function AboutPage() {
         }
       }
     }, [location]);
-    
+
+    useEffect(() => {
+        if (location.hash === "#aboutPage") {
+          const section = document.getElementById("about-page");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }, [location]);
+
   return (
     <>
-      <div className="aboutPage">
+      <div id ="about-page" className="aboutPage">
         <h1 className="aboutTitle">About Host-a-Herd</h1>
         <p className="aboutPg">
           At Host-a-Herd, we connect landowners with the benefits of
