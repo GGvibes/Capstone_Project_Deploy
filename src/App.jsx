@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
 import Header from "./components/Header";
@@ -14,10 +14,24 @@ function App() {
       .then((res) => res.json())
       .then((data) => console.log(data));
   }, []);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isHomePage = location.pathname === "/";
+
   return (
     <>
       <Header/>
-
+      {isHomePage ? (
+    <a className="learnMore" onClick={() => navigate('/aboutcontact')}>
+      Learn More
+    </a>
+  ) : (
+    <a className="home-link" onClick={() => navigate('/')}>
+      Home
+    </a>
+  )}
       <Routes>
         <Route path="/" element={<MainPage></MainPage>}></Route>
         <Route path="/loginsignup" element={<LoginSignup></LoginSignup>}></Route>

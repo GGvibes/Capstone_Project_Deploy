@@ -1,22 +1,17 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const isAboutPage = location.pathname === "/aboutcontact";
 
   const logoClick = () => {
     navigate("/");
     setIsOpen(false);
   };
 
-  const learnMoreClick = () => {
-    navigate("/aboutcontact");
-  };
+ 
 
   function handleClick() {
     setIsOpen((prev) => !prev);
@@ -34,7 +29,7 @@ export default function Header() {
   }, []);
 
   const handleLinkClick = () => {
-    setIsOpen(false); 
+    setIsOpen(false);
   };
 
   return (
@@ -48,14 +43,6 @@ export default function Header() {
           alt="goatlogo"
         ></img>
         <div ref={dropdownRef} className="dropdown-container">
-          {!isAboutPage && (
-            <a
-              className="learnMore"
-              onClick={learnMoreClick}
-            >
-              Learn More
-            </a>
-          )}
           <div className="dropdown-menu" onClick={handleClick}>
             <img
               className="menu-image"
@@ -64,20 +51,20 @@ export default function Header() {
             />
 
             {isOpen && (
-              <div>
-                <Link
-                  to={"/loginsignup"}
-                  onClick={handleLinkClick}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div className="menu-item">Log In</div>
-                </Link>
+              <div className="dropdown-content">
                 <Link
                   to={"/loginsignup"}
                   onClick={handleLinkClick}
                   style={{ textDecoration: "none" }}
                 >
                   <div className="menu-item">Sign Up</div>
+                </Link>
+                <Link
+                  to={"/loginsignup"}
+                  onClick={handleLinkClick}
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="menu-item">Log In</div>
                 </Link>
                 <hr />
               </div>

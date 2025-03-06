@@ -1,21 +1,33 @@
+import { useNavigate } from "react-router-dom";
+
+
+
 export default function Footer() {
+
+    const navigate = useNavigate();
+
+
   return (
-    <div className="content">
+    <>
       <div className="footer-container">
         <hr />
-        <h1 className="footer-title">Host-a-Herd</h1>
-        <div className="footer-links">
+        <div className="footer-content">
+          <h1 style={{color:"black"}} className="footer-title">Host-a-Herd</h1>
+          <div className="footer-links">
             <ul className="column1">
-                <li>Contact Us</li>
-                <li>Log In</li>
-                <li>Sign Up</li>
-                <li>View Account</li>
+              <li onClick={()=>navigate("/aboutcontact#contact-section")} style={{color:"black"}} >Contact Us</li>
+              <li onClick={()=>navigate("/loginsignup")}>Log In</li>
+              <li onClick={()=>navigate("/loginsignup")}>Sign Up</li>
+              <li>View Account</li>
             </ul>
-            <ul className="column1">
-                
+            <ul className="column2">
+              <li style={{color:"black"}}>About Us</li>
+              <li>Available Animals</li>
+              <li>Learn About Hosting</li>
             </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

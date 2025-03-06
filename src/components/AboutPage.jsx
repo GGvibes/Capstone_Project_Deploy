@@ -1,6 +1,19 @@
 import Contact from "./Contact";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AboutPage() {
+    const location = useLocation();
+
+    useEffect(() => {
+      if (location.hash === "#contact-section") {
+        const section = document.getElementById("contact-section");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }, [location]);
+    
   return (
     <>
       <div className="aboutPage">
@@ -27,7 +40,7 @@ export default function AboutPage() {
         </p>
         <img className="twoChickens" src="/assets/Bryanchickens.png"></img>
       </div>
-      <div className="contactForm">
+      <div id="contact-section" className="contactForm">
         <Contact></Contact>
       </div>
     </>
