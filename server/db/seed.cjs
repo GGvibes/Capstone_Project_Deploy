@@ -3,7 +3,7 @@ const {
     createUser,
     getAllUsers
 
-  } = require('./index');
+  } = require('./index.cjs');
   
   async function dropTables() {
     try {
@@ -28,7 +28,7 @@ const {
       await client.query(`
         CREATE TABLE users (
           id SERIAL PRIMARY KEY,
-          username varchar(255) UNIQUE NOT NULL,
+          email varchar(255) NOT NULL,
           password varchar(255) NOT NULL,
           name varchar(255) NOT NULL,
           location varchar(255) NOT NULL,
@@ -48,22 +48,22 @@ const {
       console.log("Starting to create users...");
   
       await createUser({ 
-        username: 'albert', 
+        email: 'albert@email.com', 
         password: 'bertie99',
         name: 'Al Bert',
-        location: 'Sidney, Australia' 
+        location: 'Maple Plain, MN' 
       });
       await createUser({ 
-        username: 'sandra', 
+        email: 'sandra@email.com', 
         password: '2sandy4me',
         name: 'Just Sandra',
-        location: 'Ain\'t tellin\''
+        location: 'Delano, MN'
       });
       await createUser({ 
-        username: 'glamgal',
+        email: 'glamgal@email.com',
         password: 'soglam',
         name: 'Joshua',
-        location: 'Upper East Side'
+        location: 'Minnetonka, MN'
       });
       
       console.log("Finished creating users!");

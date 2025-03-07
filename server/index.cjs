@@ -30,10 +30,11 @@ server.get("/test", (req, res)=> {
   res.json({message: "test API route"})
 })
 
-const apiRouter = require('./api');
+const apiRouter = require('./api/index.cjs');
 server.use('/api', apiRouter);
 
-const { client } = require('./db');
+
+const { client } = require('./db/index.cjs');
 client.connect();
 
 server.listen(PORT, () => {
