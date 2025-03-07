@@ -1,6 +1,6 @@
 const express = require('express');
 const usersRouter = express.Router();
-const bcyrpt = require ("bcrypt")
+const bcrypt = require ("bcrypt")
 
 const { 
   createUser,
@@ -37,7 +37,8 @@ usersRouter.post('/login', async (req, res, next) => {
   try {
     const user = await getUserByEmail(email);
 
-    if (user && await bcyrpt.compare(password, user.password)) {
+    if (user && await bcrypt.compare(password, user.password)) {
+      console.log("JWT_SECRET:", process.env.JWT_SECRET);
       const token = jwt.sign({ 
         id: user.id, 
         email

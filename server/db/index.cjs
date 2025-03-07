@@ -62,10 +62,33 @@ async function getUserByEmail(email) {
   }
 }
 
+async function getUserById(userId) {
+  try {
+    const { rows: [ user ] } = await client.query(`
+      SELECT id, email, name, location, active
+      FROM users
+      WHERE id=${ userId }
+    `);
+
+    if (!user) {
+      throw {
+        name: "UserNotFoundError",
+        message: "A user with that id does not exist"
+      }
+    }
+
+    // user.posts = await getPostsByUser(userId);
+
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {  
   client,
   createUser,
   getAllUsers,
-  getUserByEmail
+  getUserByEmail,
+  getUserById
 };

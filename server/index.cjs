@@ -5,6 +5,7 @@ const express = require('express');
 const server = express();
 const path = require('path')
 const cors = require('cors');
+const usersRouter = require('./api/users.cjs')
 
 server.use(cors({
     origin: "http://localhost:5173",

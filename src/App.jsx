@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
@@ -20,9 +20,22 @@ function App() {
 
   const isHomePage = location.pathname === "/";
 
+  // eslint-disable-next-line no-unused-vars
+  const [token, setToken] = useState(null);
+
+  const saveToken = (token) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
+
   return (
     <>
-      <Header/>
+      <Header setToken={saveToken}></Header>
       {isHomePage ? (
     <a className="learnMore" onClick={() => navigate('/aboutcontact')}>
       Learn More
@@ -34,7 +47,7 @@ function App() {
   )}
       <Routes>
         <Route path="/" element={<MainPage></MainPage>}></Route>
-        <Route path="/loginsignup" element={<LoginSignup></LoginSignup>}></Route>
+        <Route path="/loginsignup" element={<LoginSignup setToken={saveToken}></LoginSignup>}></Route>
         <Route path="/aboutcontact" element={<AboutPage></AboutPage>}></Route>
         <Route path="/success" element={<Success></Success>}></Route>
       </Routes>

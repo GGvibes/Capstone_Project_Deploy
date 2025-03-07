@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function LoginSignup(setToken) {
+export default function LoginSignup({ setToken }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,7 +21,7 @@ export default function LoginSignup(setToken) {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5173/api/users/login", {
+      const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
