@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
 import Header from "./components/Header";
@@ -7,6 +7,7 @@ import LoginSignup from "./components/LoginSignup";
 import AboutPage from "./components/AboutPage";
 import Success from "./components/Success";
 import Footer from "./components/Footer";
+import AccountPage from "./components/AccountPage";
 
 function App() {
   useEffect(() => {
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Header setToken={saveToken}></Header>
+      <Header token={token} logout={logout}></Header>
       {isHomePage ? (
     <a className="learnMore" onClick={() => navigate('/aboutcontact')}>
       Learn More
@@ -50,6 +51,10 @@ function App() {
         <Route path="/loginsignup" element={<LoginSignup setToken={saveToken}></LoginSignup>}></Route>
         <Route path="/aboutcontact" element={<AboutPage></AboutPage>}></Route>
         <Route path="/success" element={<Success></Success>}></Route>
+        <Route
+          path="/account"
+          element={token ? <AccountPage token={token} /> : <Navigate to="/" />}
+        ></Route>
       </Routes>
 
       <Footer></Footer>

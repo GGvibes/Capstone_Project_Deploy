@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ token ,logout }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -52,6 +52,26 @@ export default function Header() {
 
             {isOpen && (
               <div className="dropdown-content">
+                {token ? (
+                <>
+                <Link
+                  to={"/"}
+                  onClick={logout}
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="menu-item">Log Out</div>
+                </Link>
+                <Link
+                  to={"/account"}
+                  onClick={handleLinkClick}
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="menu-item">View Account</div>
+                </Link>
+                <hr />
+                </>
+                ) : (
+                <>
                 <Link
                   to={"/loginsignup"}
                   onClick={handleLinkClick}
@@ -64,9 +84,11 @@ export default function Header() {
                   onClick={handleLinkClick}
                   style={{ textDecoration: "none" }}
                 >
-                  <div className="menu-item">Log In</div>
+                  <div style={{ marginBottom: "10px" }} className="menu-item">Log In</div>
                 </Link>
-                <hr />
+                </>
+                )}
+                
               </div>
             )}
           </div>
