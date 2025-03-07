@@ -387,7 +387,7 @@ html {
   padding: 10px;
 }
 
-.continue-button {
+.login-button {
   width: 80%;
   margin: auto;
   background-color: rgb(251, 113, 78);
@@ -396,4 +396,20 @@ html {
   border-radius: 10px;
   cursor: pointer;
   margin-top: 20px;
+  font-size: 17px;
+}
+
+.signup-link {
+  margin-top: 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: aliceblue;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.signup-link:hover {
+  cursor: pointer;
 }

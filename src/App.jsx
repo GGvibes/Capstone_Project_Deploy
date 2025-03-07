@@ -21,7 +21,6 @@ function App() {
 
   const isHomePage = location.pathname === "/";
 
-  // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState(null);
 
   const saveToken = (token) => {

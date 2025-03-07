@@ -51,7 +51,7 @@ async function getUserByEmail(email) {
     if (!user) {
       throw {
         name: "UserNotFoundError",
-        message: "A user with that username does not exist"
+        message: "A user with that email does not exist"
       }
     }
 

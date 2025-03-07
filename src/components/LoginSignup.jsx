@@ -69,9 +69,10 @@ export default function LoginSignup({ setToken }) {
           value={formData.password}
           onChange={handleChange}
         ></input>
-        <button type="submit" className="continue-button">
-          Continue
+        <button type="submit" className="login-button">
+          Log In
         </button>
+        <a className="signup-link">Sign Up</a>
       </form>
       {error && <p>{error}</p>}
       {successMessage && <p className="successMessage">{successMessage}</p>}
