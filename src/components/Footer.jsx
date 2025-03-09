@@ -16,8 +16,8 @@ export default function Footer() {
           <div className="footer-links">
             <ul className="column1">
               <li onClick={()=>navigate("/aboutcontact#contact-section")} style={{color:"black"}} >Contact Us</li>
-              <li onClick={()=>navigate("/loginsignup")}>Log In</li>
-              <li onClick={()=>navigate("/loginsignup")}>Sign Up</li>
+              <li onClick={()=>navigate("/login")}>Log In</li>
+              <li onClick={()=>navigate("/signup")}>Sign Up</li>
               <li>View Account</li>
             </ul>
             <ul className="column2">
