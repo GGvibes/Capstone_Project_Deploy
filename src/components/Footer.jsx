@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="footer-container">
+      <footer className="footer-container">
         <hr />
         <div className="footer-content">
           <h1 style={{color:"black"}} className="footer-title">Host-a-Herd</h1>
@@ -27,7 +27,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-      </div>
+      </footer>
     </>
   );
 }

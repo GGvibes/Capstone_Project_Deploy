@@ -16,13 +16,13 @@ const client = new Client({
  * USER Methods
  */
 
-async function createUser({ email, password, name, location }) {
+async function createUser({ firstName, lastName, email, password, location }) {
   const hashedPassword = await bcrypt.hash(password, 5);
   const { rows: [user] } = await client.query(`
-    INSERT INTO users(email, password, name, location) 
-    VALUES($1, $2, $3, $4)
+    INSERT INTO users(firstName, lastName, email, password, location) 
+    VALUES($1, $2, $3, $4, $5)
     RETURNING *;
-  `, [email, hashedPassword, name, location]);
+  `, [firstName, lastName, email, hashedPassword, location]);
 
   if (!user) {
     throw new Error('Email already exists. Please choose another.');
@@ -33,7 +33,7 @@ async function createUser({ email, password, name, location }) {
 
 async function getAllUsers() {
   const { rows } = await client.query(`
-    SELECT id, email, name, location, active 
+    SELECT id, email, firstName, lastName, location, active 
     FROM users;
   `);
   return rows;
@@ -65,7 +65,7 @@ async function getUserByEmail(email) {
 async function getUserById(userId) {
   try {
     const { rows: [ user ] } = await client.query(`
-      SELECT id, email, name, location, active
+      SELECT id, email, firstName, lastName, location, active
       FROM users
       WHERE id=${ userId }
     `);

@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginSignup({ setToken }) {
+export default function Login({ setToken }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [successMessage, setSuccessMessage] = useState();
   const [error, setError] = useState();
@@ -50,7 +53,7 @@ export default function LoginSignup({ setToken }) {
   }
 
   return (
-    <div className="login-container">
+    <div style={{paddingBottom: "100px"}} className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h3>Log in or Sign Up</h3>
         <label>Email</label>
@@ -72,7 +75,7 @@ export default function LoginSignup({ setToken }) {
         <button type="submit" className="login-button">
           Log In
         </button>
-        <a className="signup-link">Sign Up</a>
+        <a onClick={()=>navigate("/signup")} className="signup-link">Sign Up</a>
       </form>
       {error && <p>{error}</p>}
       {successMessage && <p className="successMessage">{successMessage}</p>}

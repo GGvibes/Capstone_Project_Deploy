@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
+
 export default function MainPage() {
+
+const navigate = useNavigate();
+
   return (
     <div className="content">
       <div className="mainPage">
@@ -8,7 +14,7 @@ export default function MainPage() {
             Turn Your Land into a Living Pasture – Host Animals, Enrich Your
             Land, and Support Local Agriculture.
           </h3>
-          <button className="becomeHostButton">Become a Host</button>
+          <button onClick={()=>navigate("/signup")} className="becomeHostButton">Become a Host</button>
         </header>
         <div className="mainBodyPic">
           <img

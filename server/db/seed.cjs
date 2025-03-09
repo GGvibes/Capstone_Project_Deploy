@@ -28,9 +28,10 @@ const {
       await client.query(`
         CREATE TABLE users (
           id SERIAL PRIMARY KEY,
+          firstName varchar(255) NOT NULL,
+          lastName varchar(255) NOT NULL,
           email varchar(255) NOT NULL,
           password varchar(255) NOT NULL,
-          name varchar(255) NOT NULL,
           location varchar(255) NOT NULL,
           active boolean DEFAULT true
         );
@@ -48,21 +49,24 @@ const {
       console.log("Starting to create users...");
   
       await createUser({ 
+        firstName: "Al",
+        lastName: "Bert",
         email: 'albert@email.com', 
         password: 'bertie99',
-        name: 'Al Bert',
         location: 'Maple Plain, MN' 
       });
       await createUser({ 
+        firstName: "Sandra",
+        lastName: "Bolton",
         email: 'sandra@email.com', 
         password: '2sandy4me',
-        name: 'Just Sandra',
         location: 'Delano, MN'
       });
       await createUser({ 
+        firstName: "Lina",
+        lastName: "Olson",
         email: 'glamgal@email.com',
         password: 'soglam',
-        name: 'Joshua',
         location: 'Minnetonka, MN'
       });
       

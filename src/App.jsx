@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
-import Header from "./components/Header";
-import LoginSignup from "./components/LoginSignup";
+import Login from "./components/Login";
 import AboutPage from "./components/AboutPage";
 import Success from "./components/Success";
-import Footer from "./components/Footer";
 import AccountPage from "./components/AccountPage";
+import Signup from "./components/Signup";
+import Layout from "./components/Layout";
 
 function App() {
   useEffect(() => {
@@ -16,12 +16,8 @@ function App() {
       .then((data) => console.log(data));
   }, []);
 
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const isHomePage = location.pathname === "/";
-
   const [token, setToken] = useState(null);
+  const [loggedOut, setLoggedOut] = useState(false);
 
   const saveToken = (token) => {
     localStorage.setItem("token", token);
@@ -31,33 +27,36 @@ function App() {
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    setLoggedOut(true);
   };
 
   return (
-    <>
-      <Header token={token} logout={logout}></Header>
-      {isHomePage ? (
-    <a className="learnMore" onClick={() => navigate('/aboutcontact')}>
-      Learn More
-    </a>
-  ) : (
-    <a className="home-link" onClick={() => navigate('/')}>
-      Home
-    </a>
-  )}
-      <Routes>
-        <Route path="/" element={<MainPage></MainPage>}></Route>
-        <Route path="/loginsignup" element={<LoginSignup setToken={saveToken}></LoginSignup>}></Route>
-        <Route path="/aboutcontact" element={<AboutPage></AboutPage>}></Route>
-        <Route path="/success" element={<Success></Success>}></Route>
-        <Route
-          path="/account"
-          element={token ? <AccountPage token={token} /> : <Navigate to="/" />}
-        ></Route>
-      </Routes>
-
-      <Footer></Footer>
-    </>
+    <div className="app-container">
+      <main className="content">
+      {loggedOut && <p style={{padding: "50px"}}>You have been logged out successfully</p>}
+        <Routes>
+          <Route path="/" element={<Layout token={token} logout={logout} />}>
+            <Route index element={<MainPage />}></Route>
+            <Route
+              path="/login"
+              element={<Login setToken={saveToken}></Login>}
+            ></Route>
+            <Route
+              path="/aboutcontact"
+              element={<AboutPage></AboutPage>}
+            ></Route>
+            <Route path="/success" element={<Success />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+            <Route
+              path="/account"
+              element={
+                token ? <AccountPage token={token} /> : <Navigate to="/" />
+              }
+            ></Route>
+          </Route>
+        </Routes>
+      </main>
+    </div>
   );
 }
 

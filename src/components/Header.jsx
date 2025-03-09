@@ -73,14 +73,14 @@ export default function Header({ token ,logout }) {
                 ) : (
                 <>
                 <Link
-                  to={"/loginsignup"}
+                  to={"/signup"}
                   onClick={handleLinkClick}
                   style={{ textDecoration: "none" }}
                 >
                   <div className="menu-item">Sign Up</div>
                 </Link>
                 <Link
-                  to={"/loginsignup"}
+                  to={"/login"}
                   onClick={handleLinkClick}
                   style={{ textDecoration: "none" }}
                 >
