@@ -62,15 +62,16 @@ usersRouter.post('/login', async (req, res, next) => {
   }
 });
 
-usersRouter.post('/register', async (req, res, next) => {
-  const { email, password, name, location } = req.body;
+usersRouter.post('/signup', async (req, res, next) => {
+  const { firstName, lastName, email, password, location } = req.body;
 
   try {
 
     const user = await createUser({
+      firstName,
+      lastName,
       email,
       password,
-      name,
       location,
     });
     console.log(process.env.JWT_SECRET);

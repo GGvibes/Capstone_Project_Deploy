@@ -12,7 +12,7 @@ export default function Signup({ setToken }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    console.log("submitting")
     setError(null);
     setSuccessMessage(null);
 
@@ -43,7 +43,7 @@ export default function Signup({ setToken }) {
           location,
         }),
       });
-
+      console.log(response)
       const result = await response.json();
 
       if (!response.ok) {
@@ -141,7 +141,7 @@ export default function Signup({ setToken }) {
         </p>
       </div>
       
-        <div style={{paddingBottom: "300px"}} className="login-container">
+        <div style={{paddingBottom: "200px"}} className="login-container">
           <h2>Sign Up to Become a Host</h2>
           {error && <p className="error-message">{error}</p>}
           {successMessage && (

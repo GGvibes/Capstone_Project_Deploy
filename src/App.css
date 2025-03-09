@@ -458,3 +458,10 @@ footer {
 .signup-form label {
   margin-top: 20px;
 }
+
+.becomeHostInfo {
+  max-width: 1000px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
