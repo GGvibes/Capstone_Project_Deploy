@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import "./App.css";
 import MainPage from "./components/MainPage";
 import Login from "./components/Login";
@@ -16,8 +16,18 @@ function App() {
       .then((data) => console.log(data));
   }, []);
 
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [loggedOut, setLoggedOut] = useState(false);
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("token"));
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   const saveToken = (token) => {
     localStorage.setItem("token", token);
@@ -28,7 +38,15 @@ function App() {
     localStorage.removeItem("token");
     setToken(null);
     setLoggedOut(true);
+    navigate("/");
   };
+
+  useEffect(() => {
+    if (loggedOut) {
+      const timer = setTimeout(() => setLoggedOut(false), 3000); 
+      return () => clearTimeout(timer); 
+    }
+  }, [loggedOut]);
 
   return (
     <div className="app-container">
@@ -46,7 +64,7 @@ function App() {
               element={<AboutPage></AboutPage>}
             ></Route>
             <Route path="/success" element={<Success />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/signup" element={<Signup setToken={saveToken} />}></Route>
             <Route
               path="/account"
               element={

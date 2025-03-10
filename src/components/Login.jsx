@@ -44,6 +44,7 @@ export default function Login({ setToken }) {
         setFormData({ email: "", password: "" });
       } else {
         console.log("Authentication failed");
+        setError("Authentication Failed")
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -54,8 +55,11 @@ export default function Login({ setToken }) {
 
   return (
     <div style={{paddingBottom: "100px"}} className="login-container">
+
       <form onSubmit={handleSubmit} className="login-form">
+      {error && <p>{error}</p>}
         <h3>Log in or Sign Up</h3>
+        
         <label>Email</label>
         <input
           name="email"
@@ -77,7 +81,6 @@ export default function Login({ setToken }) {
         </button>
         <a onClick={()=>navigate("/signup")} className="signup-link">Sign Up</a>
       </form>
-      {error && <p>{error}</p>}
       {successMessage && <p className="successMessage">{successMessage}</p>}
     </div>
   );

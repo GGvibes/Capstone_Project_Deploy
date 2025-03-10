@@ -1,4 +1,5 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -24,7 +25,8 @@ function Layout({token, logout}) {
       <main className="content">
         <Outlet /> 
       </main>
-      <Footer />
+      {console.log("Layout.jsx token", token)}
+      <Footer token={token} />
     </div>
   );
 }

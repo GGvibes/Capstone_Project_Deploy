@@ -1,24 +1,36 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup({ setToken }) {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("submitting")
+
     setError(null);
     setSuccessMessage(null);
 
+
+    //Debugging
+    console.log({
+      firstName,
+      lastName,
+      email,
+      password,
+      location,
+    });
+
     const validationError = validateForm({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password,
       location,
@@ -36,16 +48,16 @@ export default function Signup({ setToken }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstname,
-          lastname,
+          firstName,
+          lastName,
           email,
           password,
           location,
         }),
       });
-      console.log(response)
+    
       const result = await response.json();
-
+      console.log("API response:", result);
       if (!response.ok) {
         setError(result.message || "An error occurred during registration.");
         return;
@@ -53,9 +65,13 @@ export default function Signup({ setToken }) {
 
       setSuccessMessage("Registration successful! You are now logged in.");
       if (result.token) {
+        console.log("Token received from API:", result.token); // Debug API response
         setToken(result.token);
+        console.log("Token after setToken:", localStorage.getItem("token")); // Check if it updates
+        navigate("/account"); 
       }
     } catch (error) {
+      console.error("Signup Error:", error);
       setError(
         "An unexpected error occurred. Please try again.",
         error.message
@@ -75,17 +91,6 @@ export default function Signup({ setToken }) {
           a Host-a-Herd member is a rewarding way to support sustainable
           agriculture, bring local food to your community, and contribute to
           ethical animal stewardship.
-        </p>
-
-        <h3>What is Community Supported Agriculture (CSA)?</h3>
-
-        <p>
-          CSA is a model of farming that connects consumers directly with local
-          food production. Members of a CSA share in the benefits of sustainable
-          agriculture by supporting farms in exchange for fresh, high-quality
-          food. By hosting an animal, you become a vital part of this system,
-          helping to raise pastured livestock in a way that benefits both the
-          environment and the community.
         </p>
 
         <h3>Land Requirements</h3>
@@ -152,7 +157,7 @@ export default function Signup({ setToken }) {
               <label>
                 First Name:
                 <input
-                  value={firstname}
+                  value={firstName}
                   onChange={(e) => setFirstname(e.target.value)}
                   placeholder="First Name"
                 />
@@ -160,7 +165,7 @@ export default function Signup({ setToken }) {
               <label>
                 Last Name:
                 <input
-                  value={lastname}
+                  value={lastName}
                   onChange={(e) => setLastname(e.target.value)}
                   placeholder="Last Name"
                 />
@@ -203,12 +208,12 @@ export default function Signup({ setToken }) {
     </div>
   );
 }
-function validateForm({ firstname, lastname, email, password, location }) {
-  if (!firstname) {
+function validateForm({ firstName, lastName, email, password, location }) {
+  if (!firstName) {
     return "First name is required.";
   }
 
-  if (!lastname) {
+  if (!lastName) {
     return "Last name is required.";
   }
   if (!email || !email.includes("@")) {
