@@ -25,7 +25,6 @@ function Layout({token, logout}) {
       <main className="content">
         <Outlet /> 
       </main>
-      {console.log("Layout.jsx token", token)}
       <Footer token={token} />
     </div>
   );

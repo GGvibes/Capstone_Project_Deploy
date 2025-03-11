@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Footer({ token }) {
   const navigate = useNavigate();
-  console.log("footer token", token)
   return (
     <>
       <footer className="footer-container">
@@ -19,7 +18,6 @@ export default function Footer({ token }) {
               >
                 Contact Us
               </li>
-              {console.log(localStorage.getItem("token"))}
               {!token && <li onClick={() => navigate("/login")}>Log In</li>}
               {!token && <li onClick={() => navigate("/signup")}>Sign Up</li>}
               {token && <li onClick={() => navigate("/account")}>Account</li>}

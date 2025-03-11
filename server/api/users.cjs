@@ -1,10 +1,20 @@
 const express = require("express");
 const usersRouter = express.Router();
 const bcrypt = require("bcrypt");
-
-const { createUser, getAllUsers, getUserByEmail } = require("../db/index.cjs");
+const { createUser, getAllUsers, getUserByEmail, getUserById } = require("../db/index.cjs");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { requireUser }= require("./utils")
+
+usersRouter.get("/me",requireUser, async (req, res, next) => {
+  try {
+    const user = await getUserById(req.user.id);
+    console.log("JWT Secret:", process.env.JWT_SECRET);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
 
 usersRouter.get("/", async (req, res, next) => {
   try {

@@ -67,8 +67,8 @@ async function getUserById(userId) {
     const { rows: [ user ] } = await client.query(`
       SELECT id, email, firstName, lastName, location, active
       FROM users
-      WHERE id=${ userId }
-    `);
+      WHERE id=$1
+    `, [userId]);
 
     if (!user) {
       throw {

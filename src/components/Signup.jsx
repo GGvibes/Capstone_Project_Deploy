@@ -18,16 +18,6 @@ export default function Signup({ setToken }) {
     setError(null);
     setSuccessMessage(null);
 
-
-    //Debugging
-    console.log({
-      firstName,
-      lastName,
-      email,
-      password,
-      location,
-    });
-
     const validationError = validateForm({
       firstName,
       lastName,
@@ -55,9 +45,9 @@ export default function Signup({ setToken }) {
           location,
         }),
       });
-    
+
       const result = await response.json();
-      console.log("API response:", result);
+
       if (!response.ok) {
         setError(result.message || "An error occurred during registration.");
         return;
@@ -65,10 +55,9 @@ export default function Signup({ setToken }) {
 
       setSuccessMessage("Registration successful! You are now logged in.");
       if (result.token) {
-        console.log("Token received from API:", result.token); // Debug API response
         setToken(result.token);
-        console.log("Token after setToken:", localStorage.getItem("token")); // Check if it updates
-        navigate("/account"); 
+
+        navigate("/account");
       }
     } catch (error) {
       console.error("Signup Error:", error);
@@ -145,66 +134,64 @@ export default function Signup({ setToken }) {
           to learn more and start your journey with Host-a-Herd!
         </p>
       </div>
-      
-        <div style={{paddingBottom: "200px"}} className="login-container">
-          <h2>Sign Up to Become a Host</h2>
-          {error && <p className="error-message">{error}</p>}
-          {successMessage && (
-            <p className="success-message">{successMessage}</p>
-          )}
-          <div>
-            <form className="signup-form" onSubmit={handleSubmit}>
-              <label>
-                First Name:
-                <input
-                  value={firstName}
-                  onChange={(e) => setFirstname(e.target.value)}
-                  placeholder="First Name"
-                />
-              </label>
-              <label>
-                Last Name:
-                <input
-                  value={lastName}
-                  onChange={(e) => setLastname(e.target.value)}
-                  placeholder="Last Name"
-                />
-              </label>
-              <label>
-                Email:
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                />
-              </label>
 
-              <label>
-                Password:
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                />
-              </label>
-              <label>
-                Location:
-                <input
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Location"
-                />
-              </label>
-              {/* <p>password must be between 8-20 characters</p> */}
+      <div style={{ paddingBottom: "200px" }} className="login-container">
+        <h2>Sign Up to Become a Host</h2>
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        <div>
+          <form className="signup-form" onSubmit={handleSubmit}>
+            <label>
+              First Name:
+              <input
+                value={firstName}
+                onChange={(e) => setFirstname(e.target.value)}
+                placeholder="First Name"
+              />
+            </label>
+            <label>
+              Last Name:
+              <input
+                value={lastName}
+                onChange={(e) => setLastname(e.target.value)}
+                placeholder="Last Name"
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+              />
+            </label>
 
-              <button className="login-button" type="submit">
-                {isSubmitting ? "Submitting..." : "Submit"}
-              </button>
-            </form>
-          </div>
+            <label>
+              Password:
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+            </label>
+            <label>
+              Location:
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Location"
+              />
+            </label>
+            {/* <p>password must be between 8-20 characters</p> */}
+
+            <button className="login-button" type="submit">
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+          </form>
         </div>
+      </div>
     </div>
   );
 }
