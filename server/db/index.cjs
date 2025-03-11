@@ -132,6 +132,32 @@ async function getAllAnimals() {
   return rows;
 }
 
+
+async function getAnimalById(animal_id) {
+  try {
+    const {
+      rows: [animal],
+    } = await client.query(
+      `
+      SELECT id, type, num_animals, breed
+      FROM animals
+      WHERE id=$1
+    `,
+      [animal_id]
+    );
+
+    if (!animal) {
+      throw {
+        name: "AnimalNotFoundError",
+        message: "An animal with that id does not exist",
+      };
+    }
+
+    return animal;
+  } catch (error) {
+    throw error;
+  }
+}
 /**
  * RSERVATION Methods
  */
@@ -196,6 +222,7 @@ module.exports = {
   createReservation,
   getAllUsers,
   getAllAnimals,
+  getAnimalById,
   getAllReservations,
   getUserByEmail,
   getUserById,
