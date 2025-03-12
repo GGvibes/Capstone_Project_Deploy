@@ -9,7 +9,6 @@ const { requireUser }= require("./utils")
 usersRouter.get("/me",requireUser, async (req, res, next) => {
   try {
     const user = await getUserById(req.user.id);
-    console.log("JWT Secret:", process.env.JWT_SECRET);
     res.json(user);
   } catch (error) {
     next(error);

@@ -18,13 +18,11 @@ const requireUser = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ error: "Token Missing"})
     }
-    console.log("Token received:", token); // Log the token to check if it's received
-
+    
     // Verify token and extract userId
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);//Debugging
+    
     const userId = decoded.id; 
-    console.log("User ID extracted from token:", userId);//Debugging
 
     const user = await getUserById(userId);
     

@@ -29,19 +29,19 @@ export default function AccountPage({ token }) {
       } catch (err) {
         setError(err.message);
       }
-      //   try {
-      //     const booksResponse = await fetch(`${API_URL}/reservations`, {
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${token}`,
-      //       },
-      //     });
-      //     const booksResult = await booksResponse.json();
+        try {
+          const reservationsResponse = await fetch(`http://localhost:5000/api/reservations`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const reservationsResult = await reservationsResponse.json();
 
-      //     setReservations(booksResult.reservation);
-      //   } catch {
-      //     console.error;
-      //   }
+          setReservations(reservationsResult.reservation);
+        } catch {
+          console.error;
+        }
     }
     fetchAccount();
   }, [token]);

@@ -4,10 +4,12 @@ const {
   getAllReservations,
   getReservationById,
   createReservation,
+  getReservationsByUser,
 } = require("../db/index.cjs");
+const { requireUser }= require("./utils")
 require("dotenv").config();
 
-reservationsRouter.get("/", async (req, res, next) => {
+reservationsRouter.get("/", requireUser, async (req, res, next) => {
   try {
     const animals = await getAllReservations();
     console.log(animals);
@@ -19,7 +21,16 @@ reservationsRouter.get("/", async (req, res, next) => {
   }
 });
 
-reservationsRouter.get("/:id", async (req, res, next) => {
+reservationsRouter.get("/lookupbyuser/:user_id",requireUser, async (req, res, next) => {
+    try {
+      const reservations = await getReservationsByUser(req.params.user_id);
+      res.json(reservations);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+reservationsRouter.get("/:id",requireUser, async (req, res, next) => {
   try {
     const reservation = await getReservationById(req.params.id);
     res.json(reservation);
@@ -28,7 +39,7 @@ reservationsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-reservationsRouter.post("/", async (req, res, next) => {
+reservationsRouter.post("/", requireUser, async (req, res, next) => {
   const { user_id, animal_id, start_date, end_date } = req.body;
 
   if (!user_id || !animal_id || !start_date || !end_date) {

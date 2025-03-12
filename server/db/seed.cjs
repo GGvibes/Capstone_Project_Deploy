@@ -32,7 +32,7 @@ async function createTables() {
 
     await client.query(`
         CREATE TABLE users (
-          id SERIAL PRIMARY KEY,
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
           firstName VARCHAR(255) NOT NULL,
           lastName VARCHAR(255) NOT NULL,
           email VARCHAR(255) NOT NULL,
@@ -54,7 +54,7 @@ async function createTables() {
     await client.query(`
         CREATE TABLE reservations (
           id SERIAL PRIMARY KEY,
-          user_id INT REFERENCES users(id) ON DELETE CASCADE,
+          user_id UUID REFERENCES users(id) ON DELETE CASCADE,
           animal_id INT REFERENCES animals(id) ON DELETE CASCADE,
           start_date date,
           end_date date
@@ -132,9 +132,9 @@ async function createInitialReservations() {
   try {
     console.log("Starting to create reservations...");
 
-    const { rows: users } = await client.query(`SELECT id FROM users LIMIT 1`);
+    const { rows: users } = await client.query(`SELECT id FROM users LIMIT 3`);
     const { rows: animals } = await client.query(
-      `SELECT id FROM animals LIMIT 1`
+      `SELECT id FROM animals LIMIT 3`
     );
 
     if (users.length === 0 || animals.length === 0) {
@@ -143,25 +143,21 @@ async function createInitialReservations() {
       );
       return;
     }
-
-    const user_id = users[0].id;
-    const animal_id = animals[0].id;
-
     await createReservation({
-      user_id: "1",
-      animal_id: "1",
+      user_id: users[0].id,
+      animal_id: animals[0].id,
       start_date: "2025-04-30",
       end_date: "2025-08-30",
     });
     await createReservation({
-      user_id: "2",
-      animal_id: "2",
+      user_id: users[1].id,
+      animal_id: animals[1].id,
       start_date: "2025-05-15",
       end_date: "2025-09-15",
     });
     await createReservation({
-      user_id: "3",
-      animal_id: "3",
+      user_id: users[2].id,
+      animal_id: animals[2].id,
       start_date: "2025-06-01",
       end_date: "2025-09-01",
     });
