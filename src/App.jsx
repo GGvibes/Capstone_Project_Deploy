@@ -8,6 +8,7 @@ import Success from "./components/Success";
 import AccountPage from "./components/AccountPage";
 import Signup from "./components/Signup";
 import Layout from "./components/Layout";
+import AvailableAnimals from "./components/AvailableAnimals";
 
 function App() {
   useEffect(() => {
@@ -70,6 +71,10 @@ function App() {
               element={
                 token ? <AccountPage token={token} /> : <Navigate to="/" />
               }
+            ></Route>
+            <Route 
+              path="/availableanimals" 
+              element={<AvailableAnimals token={token}/>}
             ></Route>
           </Route>
         </Routes>

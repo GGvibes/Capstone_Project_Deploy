@@ -29,7 +29,7 @@ export default function Footer({ token }) {
               >
                 About Us
               </li>
-              <li>Available Animals</li>
+              <li onClick={() => navigate("/availableanimals")}>Available Animals</li>
               <li>Learn About Hosting</li>
             </ul>
           </div>
