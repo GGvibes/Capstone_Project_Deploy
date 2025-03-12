@@ -7,6 +7,7 @@ const path = require('path')
 const cors = require('cors');
 const usersRouter = require('./api/users.cjs')
 const animalsRouter = require('./api/animals.cjs')
+const reservationsRouter = require('./api/reservations.cjs')
 
 server.use(cors({
     origin: "http://localhost:5173",
@@ -37,6 +38,7 @@ server.use('/api', apiRouter);
 
 server.use("/api/animals", animalsRouter)
 server.use("/api/users", usersRouter)
+server.use("/api/reservations", reservationsRouter)
 
 
 const { client } = require('./db/index.cjs');
