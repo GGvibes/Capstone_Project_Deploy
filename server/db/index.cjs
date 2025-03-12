@@ -162,50 +162,50 @@ async function getAnimalById(animal_id) {
  * RSERVATION Methods
  */
 
-async function createReservation({ user_id, animal_id, start_date, end_date }) {
-  try {
-    console.log("Creating reservation for user:", user_id, "animal:", animal_id);  //Debugging
-    const {
-      rows: [reservation],
-    } = await client.query(
-      `
-    INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
-    VALUES($1, $2, $3, $4)
-    RETURNING *;
-  `,
-      [user_id, animal_id, start_date, end_date]
-    );
-    console.log("Successfully created reservation:", reservation); //Debugging
-    return reservation;
-  } catch (error) {
-    console.error("Error creating reservation:", error.message);
-    throw error;
-  }
-}
-
-// const createReservation = async ({ user_id, animal_id, start_date, end_date }) => {
+// async function createReservation({ user_id, animal_id, start_date, end_date }) {
 //   try {
-//     await client.query('BEGIN'); // Start transaction
-
+//     console.log("Creating reservation for user:", user_id, "animal:", animal_id);  //Debugging
 //     const {
 //       rows: [reservation],
 //     } = await client.query(
 //       `
-//       INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
-//       VALUES($1, $2, $3, $4)
-//       RETURNING *;
-//     `,
+//     INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+//     VALUES($1, $2, $3, $4)
+//     RETURNING *;
+//   `,
 //       [user_id, animal_id, start_date, end_date]
 //     );
-
-//     await client.query('COMMIT'); // Commit transaction
+//     console.log("Successfully created reservation:", reservation); //Debugging
 //     return reservation;
 //   } catch (error) {
-//     await client.query('ROLLBACK'); // Rollback on error
 //     console.error("Error creating reservation:", error.message);
 //     throw error;
 //   }
-// };
+// }
+
+const createReservation = async ({ user_id, animal_id, start_date, end_date }) => {
+  try {
+    await client.query('BEGIN'); // Start transaction
+
+    const {
+      rows: [reservation],
+    } = await client.query(
+      `
+      INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+      VALUES($1, $2, $3, $4)
+      RETURNING *;
+    `,
+      [user_id, animal_id, start_date, end_date]
+    );
+
+    await client.query('COMMIT'); // Commit transaction
+    return reservation;
+  } catch (error) {
+    await client.query('ROLLBACK'); // Rollback on error
+    console.error("Error creating reservation:", error.message);
+    throw error;
+  }
+};
 
 async function getAllReservations() {
   const { rows } = await client.query(`
