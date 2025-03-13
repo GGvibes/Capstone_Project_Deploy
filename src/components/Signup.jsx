@@ -6,13 +6,14 @@ export default function Signup({ setToken }) {
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
+    
     event.preventDefault();
 
     setError(null);
@@ -23,7 +24,7 @@ export default function Signup({ setToken }) {
       lastName,
       email,
       password,
-      location,
+      address,
     });
     if (validationError) {
       setError(validationError);
@@ -42,12 +43,12 @@ export default function Signup({ setToken }) {
           lastName,
           email,
           password,
-          location,
+          address,
         }),
       });
 
       const result = await response.json();
-
+      
       if (!response.ok) {
         setError(result.message || "An error occurred during registration.");
         return;
@@ -56,7 +57,7 @@ export default function Signup({ setToken }) {
       setSuccessMessage("Registration successful! You are now logged in.");
       if (result.token) {
         setToken(result.token);
-
+        
         navigate("/account");
       }
     } catch (error) {
@@ -89,7 +90,7 @@ export default function Signup({ setToken }) {
           general guidelines for hosting:
         </p>
         <p>
-          Chickens: Requires at least 500 sq. ft. of outdoor space with natural
+          Chickens: Require at least 500 sq. ft. of outdoor space with natural
           foraging opportunities. A secure coop is recommended for protection at
           night.
         </p>
@@ -98,7 +99,7 @@ export default function Signup({ setToken }) {
           shaded spots. A predator-proof enclosure is required.
         </p>
         <p>
-          Sheep or Goats: Requires ¼ to ½ acre per animal, with proper fencing
+          Sheep or Goats: Require ¼ to ½ acre per animal, with proper fencing
           (woven wire or electric). Access to shelter and clean water is
           essential.
         </p>
@@ -114,8 +115,7 @@ export default function Signup({ setToken }) {
         <h3>Other Considerations</h3>
         <p>
           Fencing & Shelter: We will provide the necessary fencing and shelter
-          for all animals. Proper fencing is crucial to protect animals and
-          prevent escapes.
+          for all animals. Animals will be rotationally grazed to maintain pasture and animal health.
         </p>
         <p>
           Time Commitment: While Host-a-Herd handles major animal care aspects,
@@ -176,12 +176,12 @@ export default function Signup({ setToken }) {
               />
             </label>
             <label>
-              Location:
+              Address:
               <input
                 type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Location"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Address"
               />
             </label>
             {/* <p>password must be between 8-20 characters</p> */}
@@ -195,7 +195,7 @@ export default function Signup({ setToken }) {
     </div>
   );
 }
-function validateForm({ firstName, lastName, email, password, location }) {
+function validateForm({ firstName, lastName, email, password, address }) {
   if (!firstName) {
     return "First name is required.";
   }
@@ -211,8 +211,8 @@ function validateForm({ firstName, lastName, email, password, location }) {
     return "Password must be between 8 and 20 characters.";
   }
 
-  if (!location) {
-    return "Location is required to determine if you're eligible to host animals!";
+  if (!address) {
+    return "Address is required to determine if you're eligible to host animals!";
   }
 
   return null;

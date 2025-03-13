@@ -38,7 +38,7 @@ async function createTables() {
           email VARCHAR(255) NOT NULL,
           password VARCHAR(255) NOT NULL,
           address VARCHAR(255) NOT NULL,
-          active BOOLEAN DEFAULT true
+          host BOOLEAN DEFAULT false
         );
       `);
 
@@ -107,7 +107,7 @@ async function createInitialAnimals() {
 
     await createAnimals({
       type: "chicken",
-      num_animals: 5,
+      num_animals: 4,
       breed: "easter eggers",
     });
     await createAnimals({

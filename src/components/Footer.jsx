@@ -29,8 +29,20 @@ export default function Footer({ token }) {
               >
                 About Us
               </li>
-              <li onClick={() => navigate("/availableanimals")}>Available Animals</li>
+              <li onClick={() => navigate("/availableanimals")}>
+                Available Animals
+              </li>
               <li>Learn About Hosting</li>
+              <li>
+                <a
+                  style={{ textDecoration: "none", color: "rgb(80, 80, 80)"}}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://gardens.theownerbuildernetwork.co/2023/11/21/sheep-as-lawn-mowers/"
+                >
+                  Sheep as Lawn-Mowers
+                </a>
+              </li>
             </ul>
           </div>
         </div>

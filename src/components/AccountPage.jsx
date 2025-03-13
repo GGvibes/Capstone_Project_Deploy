@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function AccountPage({ token }) {
   const [accountData, setAccountData] = useState(null);
   const [error, setError] = useState(null);
-  // console.log(token)
+  const [reservations, setReservations] = useState([])
 
   useEffect(() => {
     async function fetchAccount() {
@@ -26,25 +26,26 @@ export default function AccountPage({ token }) {
 
         const result = await response.json();
         setAccountData(result);
+        const userId = result.id;
+        const reservationsResponse = await fetch(`http://localhost:5000/api/reservations/lookupbyuser/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Res response", reservationsResponse)
+        const reservationsResult = await reservationsResponse.json();
+        console.log ("Reservations in fetch account" ,reservationsResult)
+        setReservations(reservationsResult.reservation);
+
       } catch (err) {
         setError(err.message);
       }
-        try {
-          const reservationsResponse = await fetch(`http://localhost:5000/api/reservations`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          const reservationsResult = await reservationsResponse.json();
-
-          setReservations(reservationsResult.reservation);
-        } catch {
-          console.error;
-        }
     }
     fetchAccount();
   }, [token]);
+
+
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -53,7 +54,7 @@ export default function AccountPage({ token }) {
   if (!accountData) {
     return <p>Loading...</p>;
   }
-  console.log(accountData);
+  console.log("Account Data", accountData);
   return (
     <div>
       <div className="accountDetails">
@@ -61,7 +62,8 @@ export default function AccountPage({ token }) {
         <p>First Name: {accountData.firstname}</p>
         <p>Last Name: {accountData.lastname}</p>
         <p>Email: {accountData.email}</p>
-        <p>Location: {accountData.location}</p>
+        <p>Address: {accountData.address}</p>
+        <p>Reservations: {reservations}</p>
       </div>
     </div>
   );

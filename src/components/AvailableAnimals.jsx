@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 export default function AvailableAnimals({ token }) {
-  const [animals, setAnimals] = useState(null);
+  const [animals, setAnimals] = useState([]);
   const [error, setError] = useState(null);
-  console.log(token)
+  console.log(token);
 
   useEffect(() => {
     async function fetchAnimals() {
@@ -25,27 +25,40 @@ export default function AvailableAnimals({ token }) {
         }
 
         const result = await response.json();
-        setAnimals(result);
+        setAnimals(result.animals || []);
       } catch (err) {
         setError(err.message);
       }
     }
     fetchAnimals();
   }, [token]);
-
+  
   if (error) {
-    return <p>{error}</p>;
+    return <p style={{margin: "30px"}}>{error}</p>;
   }
 
   if (!animals) {
     return <p>Loading...</p>;
   }
   console.log(animals);
+
   return (
     <div>
-      <div className="accountDetails">
+      <div className="availableAnimalsPage">
         <h2>Available Animals:</h2>
-        <p></p>
+        <div>
+          {animals.length > 0 ? (
+            animals.map((animal) => (
+              <div key={animal.id}>
+                <h3>{animal.type}</h3>
+                <p>{animal.breed}</p>
+                <p>Number of animals: {animal.num_animals}</p>
+              </div>
+            ))
+          ) : (
+            <p>No animals available.</p>
+          )}
+        </div>
       </div>
     </div>
   );

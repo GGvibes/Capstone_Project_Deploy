@@ -70,15 +70,15 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 usersRouter.post("/signup", async (req, res, next) => {
-  const { firstName, lastName, email, password, location } = req.body;
-
+  const { firstName, lastName, email, password, address } = req.body;
+  console.log("Request body:", req.body); 
   try {
     const user = await createUser({
       firstName,
       lastName,
       email,
       password,
-      location,
+      address,
     });
 
     const token = await jwt.sign(
@@ -91,6 +91,7 @@ usersRouter.post("/signup", async (req, res, next) => {
         expiresIn: "1w",
       }
     );
+    
 
     res.status(201).send({
       message: "thank you for signing up",

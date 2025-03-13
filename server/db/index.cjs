@@ -24,6 +24,7 @@ const client = new Client({
 
 async function createUser({ firstName, lastName, email, password, address }) {
   const hashedPassword = await bcrypt.hash(password, 5);
+  console.log("Received address:", address);
   const {
     rows: [user],
   } = await client.query(
