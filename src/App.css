@@ -510,3 +510,17 @@ button:hover {
 .animal-details-page {
   margin: 30px;
 }
+
+.edit-reservations-container {
+  display: block;
+  justify-content: center;
+  text-align: center;
+}
+
+.dates-form input {
+  margin: 5px;
+}
+
+.dates-form button {
+  margin: 5px;
+}

@@ -5,7 +5,8 @@ const {
   getReservationById,
   createReservation,
   getReservationsByUser,
-  getReservationsByAnimal
+  getReservationsByAnimal,
+  editReservation
 } = require("../db/index.cjs");
 const { requireUser }= require("./utils")
 require("dotenv").config();
@@ -39,6 +40,21 @@ reservationsRouter.get("/lookupbyuser/:user_id",requireUser, async (req, res, ne
     }
   });
   
+  reservationsRouter.put("/:id", requireUser, async (req, res, next) => {
+    const { id } = req.params;
+    const fields = req.body;
+
+    try {
+      const updatedReservation = await editReservation(id, fields);
+      if (!updatedReservation) {
+        return res.status(404).json({ message: 'Reservation not found' });
+      }
+      res.json(updatedReservation);
+    } catch (error) {
+      console.error("error updating reservation", error);
+      res.status(500).json({ message: 'Failed to update reservation' });
+    }
+  });
 
 reservationsRouter.get("/:id",requireUser, async (req, res, next) => {
   try {

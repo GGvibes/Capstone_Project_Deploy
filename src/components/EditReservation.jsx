@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function EditReservation() {
   const { id } = useParams();
   const [reservation, setReservation] = useState(null);
   const [error, setError] = useState(null);
-  const [animal, setAnimal] = useState(null)
+  const [animal, setAnimal] = useState(null);
+  const [showDateForm, setShowDateForm] = useState(false);
+  const [newStartDate, setNewStartDate] = useState("");
+  const [newEndDate, setNewEndDate] = useState("");
+  const navigate = useNavigate();
+
+  const editDatesClick = () => {
+    return setShowDateForm(true);
+  };
+
+  const handleDeleteClick = () => {};
 
   useEffect(() => {
     async function fetchReservation() {
@@ -28,18 +38,19 @@ export default function EditReservation() {
         setReservation(data);
 
         const animalResponse = await fetch(
-            `http://localhost:5000/api/animals/${data.animal_id}`, 
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (!animalResponse.ok) throw new Error("Failed to fetch animal details.");
-  
-          const animalData = await animalResponse.json();
-          setAnimal(animalData); 
+          `http://localhost:5000/api/animals/${data.animal_id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (!animalResponse.ok)
+          throw new Error("Failed to fetch animal details.");
+
+        const animalData = await animalResponse.json();
+        setAnimal(animalData);
       } catch (err) {
         setError(err.message);
       }
@@ -50,13 +61,44 @@ export default function EditReservation() {
     }
   }, [id]);
 
-
   if (error) return <p>Error: {error}</p>;
-  if (!reservation || !animal) return <p>Loading...</p>; 
-  
+  if (!reservation || !animal) return <p>Loading...</p>;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("save button clicked!")
+    const token = localStorage.getItem("token");
+    const updatedDates = {
+      start_date: new Date(newStartDate).toISOString().split("T")[0],
+      end_date: new Date (newEndDate).toISOString().split("T")[0],
+    };
+    
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/reservations/${reservation.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedDates),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to update reservation.");
+
+      const updatedReservation = await response.json();
+      setReservation(updatedReservation);
+      alert("Reservation updated successfully!");
+    } catch (err) {
+      console.error("Error updating reservation:", err);
+    }
+  };
+
   return (
-    <div className="reservations-container" key={reservation.id}>
-      <div className="reservation-card">
+    <div className="edit-reservations-container" key={reservation.id}>
+      <div className="edit-reservation-card">
         {animal ? (
           <>
             <p>Type: {animal.type}</p>
@@ -73,13 +115,52 @@ export default function EditReservation() {
         <p>
           End Date: {format(new Date(reservation.end_date), "MMMM d, yyyy")}
         </p>
+      </div>
+      <button
+        onClick={editDatesClick}
+        style={{ margin: "5px", padding: "5px" }}
+      >
+        Edit Dates
+      </button>
+      {showDateForm && (
+        <form className="dates-form">
+          <label>
+            Start Date:
+            <input
+              type="date"
+              value={newStartDate}
+              onChange={(e) => setNewStartDate(e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            End Date:
+            <input
+              type="date"
+              value={newEndDate}
+              onChange={(e) => setNewEndDate(e.target.value)}
+            />
+          </label>
+          <br />
+          <button onClick={handleSubmit} type="submit">
+            Save
+          </button>
+        </form>
+      )}
+      <div>
         <button
-          onClick={() => navigate(`/account`)}
-          style={{ padding: "8px" }}
+          onClick={handleDeleteClick}
+          style={{ margin: "5px", padding: "5px" }}
         >
-          Back to Account Page
+          Cancel Reservation
         </button>
       </div>
+      <button
+        onClick={() => navigate(`/account`)}
+        style={{ padding: "5px", margin: "5px" }}
+      >
+        Back to Account Page
+      </button>
     </div>
   );
 }

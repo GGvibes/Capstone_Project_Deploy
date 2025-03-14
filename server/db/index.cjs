@@ -17,7 +17,6 @@ const client = new Client({
       : undefined,
 });
 
-
 /**
  * USER Methods
  */
@@ -132,7 +131,6 @@ async function getAllAnimals() {
   return rows;
 }
 
-
 async function getAnimalById(animal_id) {
   try {
     const {
@@ -169,7 +167,7 @@ async function getAnimalById(animal_id) {
 //       rows: [reservation],
 //     } = await client.query(
 //       `
-//     INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+//     INSERT INTO reservations(user_id, animal_id, start_date, end_date)
 //     VALUES($1, $2, $3, $4)
 //     RETURNING *;
 //   `,
@@ -183,9 +181,14 @@ async function getAnimalById(animal_id) {
 //   }
 // }
 
-const createReservation = async ({ user_id, animal_id, start_date, end_date }) => {
+const createReservation = async ({
+  user_id,
+  animal_id,
+  start_date,
+  end_date,
+}) => {
   try {
-    await client.query('BEGIN'); // Start transaction
+    await client.query("BEGIN"); // Start transaction
 
     const {
       rows: [reservation],
@@ -198,10 +201,10 @@ const createReservation = async ({ user_id, animal_id, start_date, end_date }) =
       [user_id, animal_id, start_date, end_date]
     );
 
-    await client.query('COMMIT'); // Commit transaction
+    await client.query("COMMIT"); // Commit transaction
     return reservation;
   } catch (error) {
-    await client.query('ROLLBACK'); // Rollback on error
+    await client.query("ROLLBACK"); // Rollback on error
     console.error("Error creating reservation:", error.message);
     throw error;
   }
@@ -243,7 +246,7 @@ async function getReservationById(reservation_id) {
 
 async function getReservationsByUser(user_id) {
   try {
-    const {rows} = await client.query(
+    const { rows } = await client.query(
       `
       SELECT id, user_id, animal_id, start_date, end_date
       FROM reservations
@@ -259,8 +262,7 @@ async function getReservationsByUser(user_id) {
       };
     }
 
-    return rows; 
-
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -284,12 +286,58 @@ async function getReservationsByAnimal(animal_id) {
       };
     }
 
-    return rows; 
+    return rows;
   } catch (error) {
     throw error;
   }
 }
 
+async function editReservation(id, fields) {
+  try {
+    Object.keys(fields).forEach((key) => {
+      if (key.includes("date")) {
+        fields[key] = new Date(fields[key]).toISOString().split("T")[0];
+      }
+    });
+
+    const setString = Object.keys(fields)
+      .map((key, index) => `"${key}"=$${index + 1}`)
+      .join(", ");
+
+    if (setString.length === 0) {
+      return;
+    }
+
+    const {
+      rows: [reservation],
+    } = await client.query(
+      `
+    UPDATE reservations
+    SET ${setString}
+    WHERE id=$${Object.keys(fields).length + 1} 
+    RETURNING *;
+  `,
+      [...Object.values(fields), id]
+    );
+
+    return reservation;
+  } catch (error) {
+    console.error("Error updating reservation", error);
+  }
+}
+
+async function deleteReservation({ user_id, id }) {
+  try {
+    const SQL = `
+        DELETE 
+        FROM reservations 
+        WHERE user_id=$1 AND id=$2
+      `;
+    await client.query(SQL, [user_id, id]);
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = {
   client,
@@ -305,4 +353,6 @@ module.exports = {
   getReservationsByAnimal,
   getUserByEmail,
   getUserById,
+  editReservation,
+  deleteReservation,
 };
