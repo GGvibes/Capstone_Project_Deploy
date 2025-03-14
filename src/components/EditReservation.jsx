@@ -13,7 +13,7 @@ export default function EditReservation() {
   const navigate = useNavigate();
 
   const editDatesClick = () => {
-    return setShowDateForm(true);
+    setShowDateForm(prevState => !prevState);
   };
 
   const handleDeleteClick = () => {};
