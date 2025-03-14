@@ -42,6 +42,7 @@ export default function Login({ setToken }) {
         setToken(result.token);
         setSuccessMessage("You are now logged in!");
         setFormData({ email: "", password: "" });
+        navigate("/account");
       } else {
         console.log("Authentication failed");
         setError("Authentication Failed")

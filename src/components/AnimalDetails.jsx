@@ -5,7 +5,7 @@ function AnimalDetails() {
   const { id } = useParams();
   const [animal, setAnimal] = useState(null);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     
     async function fetchAnimalDetails() {

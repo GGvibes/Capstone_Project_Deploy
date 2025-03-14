@@ -86,7 +86,7 @@ function App() {
               element={<AvailableAnimals token={token} />}
             ></Route>
             <Route path="/animals/:id" element={<AnimalDetails />}></Route>
-            <Route path="/reservations/:id" element={<EditReservation />}></Route>
+            <Route token={token} path="/reservations/:id" element={<EditReservation />}></Route>
           </Route>
         </Routes>
       </main>
