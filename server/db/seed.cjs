@@ -145,9 +145,9 @@ async function createInitialReservations() {
   try {
     console.log("Starting to create reservations...");
 
-    const { rows: users } = await client.query(`SELECT id FROM users LIMIT 3`);
+    const { rows: users } = await client.query(`SELECT id FROM users LIMIT 10`);
     const { rows: animals } = await client.query(
-      `SELECT id FROM animals LIMIT 3`
+      `SELECT id FROM animals LIMIT 10`
     );
 
     if (users.length === 0 || animals.length === 0) {

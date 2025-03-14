@@ -24,7 +24,6 @@ const client = new Client({
 
 async function createUser({ firstName, lastName, email, password, address }) {
   const hashedPassword = await bcrypt.hash(password, 5);
-  console.log("Received address:", address);
   const {
     rows: [user],
   } = await client.query(
@@ -115,7 +114,7 @@ async function createAnimals({ type, num_animals, breed, animal_img_url }) {
     rows: [animal],
   } = await client.query(
     `
-    INSERT INTO animals(type, num_animals, breed,animal_img_url) 
+    INSERT INTO animals(type, num_animals, breed, animal_img_url)
     VALUES($1, $2, $3, $4)
     RETURNING *;
   `,
@@ -163,26 +162,50 @@ async function getAnimalById(animal_id) {
  * RSERVATION Methods
  */
 
-async function createReservation({ user_id, animal_id, start_date, end_date }) {
+// async function createReservation({ user_id, animal_id, start_date, end_date }) {
+//   try {
+//     console.log("Creating reservation for user:", user_id, "animal:", animal_id);  //Debugging
+//     const {
+//       rows: [reservation],
+//     } = await client.query(
+//       `
+//     INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+//     VALUES($1, $2, $3, $4)
+//     RETURNING *;
+//   `,
+//       [user_id, animal_id, start_date, end_date]
+//     );
+//     console.log("Successfully created reservation:", reservation); //Debugging
+//     return reservation;
+//   } catch (error) {
+//     console.error("Error creating reservation:", error.message);
+//     throw error;
+//   }
+// }
+
+const createReservation = async ({ user_id, animal_id, start_date, end_date }) => {
   try {
+    await client.query('BEGIN'); // Start transaction
+
     const {
       rows: [reservation],
     } = await client.query(
       `
-    INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
-    VALUES($1, $2, $3, $4)
-    RETURNING *;
-  `,
+      INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+      VALUES($1, $2, $3, $4)
+      RETURNING *;
+    `,
       [user_id, animal_id, start_date, end_date]
     );
 
+    await client.query('COMMIT'); // Commit transaction
     return reservation;
   } catch (error) {
+    await client.query('ROLLBACK'); // Rollback on error
     console.error("Error creating reservation:", error.message);
     throw error;
   }
-}
-
+};
 
 async function getAllReservations() {
   const { rows } = await client.query(`
@@ -220,7 +243,7 @@ async function getReservationById(reservation_id) {
 
 async function getReservationsByUser(user_id) {
   try {
-    const { rows } = await client.query(
+    const {rows} = await client.query(
       `
       SELECT id, user_id, animal_id, start_date, end_date
       FROM reservations
@@ -229,20 +252,44 @@ async function getReservationsByUser(user_id) {
       [user_id]
     );
 
-    console.log("Reservations fetched from DB:", rows); // Log result
-
-    if (!rows.length) {
+    if (rows.length === 0) {
       throw {
         name: "ReservationsNotFoundError",
         message: "No reservations found under that user",
       };
     }
 
-    return rows;
+    return rows; 
+
   } catch (error) {
     throw error;
   }
 }
+
+async function getReservationsByAnimal(animal_id) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT id, user_id, animal_id, start_date, end_date
+      FROM reservations
+      WHERE animal_id=$1
+    `,
+      [animal_id]
+    );
+
+    if (rows.length === 0) {
+      throw {
+        name: "ReservationsNotFoundError",
+        message: "No reservations found for that animal",
+      };
+    }
+
+    return rows; 
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 module.exports = {
   client,
@@ -255,6 +302,7 @@ module.exports = {
   getAllReservations,
   getReservationById,
   getReservationsByUser,
+  getReservationsByAnimal,
   getUserByEmail,
   getUserById,
 };

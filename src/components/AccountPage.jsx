@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function AccountPage({ token }) {
@@ -7,6 +8,7 @@ export default function AccountPage({ token }) {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [animals, setAnimals] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchAccount() {
@@ -119,7 +121,7 @@ export default function AccountPage({ token }) {
                       End Date:{" "}
                       {format(new Date(reservation.end_date), "MMMM d, yyyy")}
                     </p>
-                    <button style={{padding:"8px"}}>Edit Reservation</button>
+                    <button onClick={() => navigate(`/reservations/${reservation.id}`)} style={{padding:"8px"}}>Edit Reservation</button>
                   </div>
                 </div>
               );

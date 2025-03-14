@@ -5,6 +5,7 @@ const {
   getReservationById,
   createReservation,
   getReservationsByUser,
+  getReservationsByAnimal
 } = require("../db/index.cjs");
 const { requireUser }= require("./utils")
 require("dotenv").config();
@@ -28,6 +29,16 @@ reservationsRouter.get("/lookupbyuser/:user_id",requireUser, async (req, res, ne
       next(error);
     }
   });
+
+  reservationsRouter.get("/lookupbyanimal/:animal_id", requireUser, async (req, res, next) => {
+    try {
+      const reservations = await getReservationsByAnimal(req.params.animal_id);
+      res.json(reservations);
+    } catch (error) {
+      next(error);
+    }
+  });
+  
 
 reservationsRouter.get("/:id",requireUser, async (req, res, next) => {
   try {

@@ -471,7 +471,10 @@ footer {
 }
 
 .reservations_container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
 }
 
 .reservation-card {
@@ -502,4 +505,8 @@ button:hover {
   text-align: left;
   width: 250px;
   padding-bottom: 10px;
+}
+
+.animal-details-page {
+  margin: 30px;
 }

@@ -9,6 +9,8 @@ import AccountPage from "./components/AccountPage";
 import Signup from "./components/Signup";
 import Layout from "./components/Layout";
 import AvailableAnimals from "./components/AvailableAnimals";
+import AnimalDetails from "./components/AnimalDetails";
+import EditReservation from "./components/EditReservation";
 
 function App() {
   useEffect(() => {
@@ -20,12 +22,12 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loggedOut, setLoggedOut] = useState(false);
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     const handleStorageChange = () => {
       setToken(localStorage.getItem("token"));
     };
-  
+
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
@@ -44,15 +46,19 @@ function App() {
 
   useEffect(() => {
     if (loggedOut) {
-      const timer = setTimeout(() => setLoggedOut(false), 3000); 
-      return () => clearTimeout(timer); 
+      const timer = setTimeout(() => setLoggedOut(false), 3000);
+      return () => clearTimeout(timer);
     }
   }, [loggedOut]);
 
   return (
     <div className="app-container">
       <main className="content">
-      {loggedOut && <p style={{padding: "50px"}}>You have been logged out successfully</p>}
+        {loggedOut && (
+          <p style={{ padding: "50px" }}>
+            You have been logged out successfully
+          </p>
+        )}
         <Routes>
           <Route path="/" element={<Layout token={token} logout={logout} />}>
             <Route index element={<MainPage />}></Route>
@@ -65,17 +71,22 @@ function App() {
               element={<AboutPage></AboutPage>}
             ></Route>
             <Route path="/success" element={<Success />}></Route>
-            <Route path="/signup" element={<Signup setToken={saveToken} />}></Route>
+            <Route
+              path="/signup"
+              element={<Signup setToken={saveToken} />}
+            ></Route>
             <Route
               path="/account"
               element={
                 token ? <AccountPage token={token} /> : <Navigate to="/" />
               }
             ></Route>
-            <Route 
-              path="/availableanimals" 
-              element={<AvailableAnimals token={token}/>}
+            <Route
+              path="/availableanimals"
+              element={<AvailableAnimals token={token} />}
             ></Route>
+            <Route path="/animals/:id" element={<AnimalDetails />}></Route>
+            <Route path="/reservations/:id" element={<EditReservation />}></Route>
           </Route>
         </Routes>
       </main>

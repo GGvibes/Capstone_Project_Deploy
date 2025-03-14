@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function AvailableAnimals({ token }) {
   const [animals, setAnimals] = useState([]);
-  const [animalDetails, setAnimalDetails] = useState({});
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -33,29 +33,6 @@ export default function AvailableAnimals({ token }) {
     fetchAnimals();
   }, [token]);
 
-  const handleClick = () => {
-
-  }
-
-//   useEffect(() => {
-//     async function fetchAnimalDetails() {
-//       try {
-//         const response = await fetch("http://localhost:5000/api/animals/:id");
-
-//         if (!response.ok) {
-//           setError("Failed to fetch animal details.");
-//         }
-
-//         const result = await response.json();
-//         console.log(result);
-//         setAnimalDetails(result);
-//         console.log("Animal Details", animalDetails);
-//       } catch (err) {
-//         setError(err.message);
-//       }
-//     }
-//     fetchAnimalDetails();
-//   }, [handleClick]);
 
   if (error) {
     return <p style={{ margin: "30px" }}>{error}</p>;
@@ -64,7 +41,7 @@ export default function AvailableAnimals({ token }) {
   if (!animals) {
     return <p>Loading...</p>;
   }
-  
+
   return (
     <div>
       <div className="availableAnimalsPage">
@@ -79,7 +56,9 @@ export default function AvailableAnimals({ token }) {
                   style={{ width: "200px", margin: "20px" }}
                   src={animal.animal_img_url}
                 ></img>
-                <button onClick={handleClick}>See Details</button>
+                <Link to={`/animals/${animal.id}`}>
+                  <button>See Details</button>
+                </Link>
               </div>
             ))
           ) : (
