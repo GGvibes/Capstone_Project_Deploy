@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 export default function AvailableAnimals({ token }) {
   const [animals, setAnimals] = useState([]);
+  const [animalDetails, setAnimalDetails] = useState({});
   const [error, setError] = useState(null);
-  console.log(token);
 
   useEffect(() => {
     async function fetchAnimals() {
@@ -32,27 +32,54 @@ export default function AvailableAnimals({ token }) {
     }
     fetchAnimals();
   }, [token]);
-  
+
+  const handleClick = () => {
+
+  }
+
+//   useEffect(() => {
+//     async function fetchAnimalDetails() {
+//       try {
+//         const response = await fetch("http://localhost:5000/api/animals/:id");
+
+//         if (!response.ok) {
+//           setError("Failed to fetch animal details.");
+//         }
+
+//         const result = await response.json();
+//         console.log(result);
+//         setAnimalDetails(result);
+//         console.log("Animal Details", animalDetails);
+//       } catch (err) {
+//         setError(err.message);
+//       }
+//     }
+//     fetchAnimalDetails();
+//   }, [handleClick]);
+
   if (error) {
-    return <p style={{margin: "30px"}}>{error}</p>;
+    return <p style={{ margin: "30px" }}>{error}</p>;
   }
 
   if (!animals) {
     return <p>Loading...</p>;
   }
-  console.log(animals);
-
+  
   return (
     <div>
       <div className="availableAnimalsPage">
         <h2>Available Animals:</h2>
-        <div>
+        <div className="animals-container">
           {animals.length > 0 ? (
             animals.map((animal) => (
-              <div key={animal.id}>
-                <h3>{animal.type}</h3>
-                <p>{animal.breed}</p>
+              <div className="animals-card" key={animal.id}>
+                <p>Type: {animal.type}</p>
                 <p>Number of animals: {animal.num_animals}</p>
+                <img
+                  style={{ width: "200px", margin: "20px" }}
+                  src={animal.animal_img_url}
+                ></img>
+                <button onClick={handleClick}>See Details</button>
               </div>
             ))
           ) : (

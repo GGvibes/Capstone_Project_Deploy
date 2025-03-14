@@ -469,3 +469,37 @@ footer {
 .accountDetails {
   margin: 30px;
 }
+
+.reservations_container {
+  display: grid;
+}
+
+.reservation-card {
+  margin: 20px;
+  border: black 2px solid;
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 250px;
+  padding-bottom: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.animals-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.animals-card {
+  margin: 20px;
+  border: black 2px solid;
+  border-radius: 10px;
+  padding-left: 10px;
+  text-align: left;
+  width: 250px;
+  padding-bottom: 10px;
+}

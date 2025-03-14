@@ -90,33 +90,37 @@ export default function AccountPage({ token }) {
         <p>Email: {accountData.email}</p>
         <p>Address: {accountData.address}</p>
         <div>
-          Reservations:
+          <h3 style= {{marginTop:"50px"}}>Reservations:</h3>
           {reservations?.length > 0 ? (
             reservations.map((reservation) => {
               const animal = animals[reservation.animal_id];
               return (
-                <div key={reservation.id}>
-                  {animal ? (
-                    <>
-                      <h4>Animal: {animal.type}</h4>
-                      <p>Breed: {animal.breed}</p>
-                      <img
-                        src={animal.animal_img_url}
-                        alt={animal.type}
-                        width="100"
-                      />
-                    </>
-                  ) : (
-                    <p>Loading animal info...</p>
-                  )}
-                  <p>
-                    Start Date:{" "}
-                    {format(new Date(reservation.start_date), "MMMM d, yyyy")}
-                  </p>
-                  <p>
-                    End Date:{" "}
-                    {format(new Date(reservation.end_date), "MMMM d, yyyy")}
-                  </p>
+                <div className="reservations-container" key={reservation.id}>
+                  <div className="reservation-card">
+                    {animal ? (
+                      <>
+                        <p>Type: {animal.type}</p>
+                        <p>Breed: {animal.breed}</p>
+                        <p>Number of Animals: {animal.num_animals}</p>
+                        <img
+                          src={animal.animal_img_url}
+                          alt={animal.type}
+                          width="150"
+                        />
+                      </>
+                    ) : (
+                      <p>Loading animal info...</p>
+                    )}
+                    <p>
+                      Start Date:{" "}
+                      {format(new Date(reservation.start_date), "MMMM d, yyyy")}
+                    </p>
+                    <p>
+                      End Date:{" "}
+                      {format(new Date(reservation.end_date), "MMMM d, yyyy")}
+                    </p>
+                    <button style={{padding:"8px"}}>Edit Reservation</button>
+                  </div>
                 </div>
               );
             })

@@ -107,23 +107,32 @@ async function createInitialAnimals() {
     console.log("Starting to create animals...");
 
     await createAnimals({
-      type: "chicken",
+      type: "Chicken",
       num_animals: 3,
-      breed: "easter eggers",
+      breed: "Easter Eggers",
       animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
     });
     await createAnimals({
-      type: "sheep",
+      type: "Sheep",
       num_animals: 2,
-      breed: "katahdin",
-      animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
+      breed: "Cotswold",
+      animal_img_url: "https://i.pinimg.com/originals/a7/b5/a5/a7b5a561d9f4e81276b18982a6bb022e.jpg"
     });
     await createAnimals({
-      type: "cow calf pair",
+      type: "Cow Calf pair",
       num_animals: 2,
-      breed: "jersey",
-      animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
+      breed: "Jersey",
+      animal_img_url: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/1-jersey-cow-and-calf-bethany-benike.jpg"
     });
+    await createAnimals({
+      type: "Alpaca",
+      num_animals: 2,
+      breed: "Huacaya",
+      animal_img_url: "https://www.marylandzoo.org/wp-content/uploads/2017/10/alpaca_web.jpg"
+    });
+
+
+    
 
     console.log("Finished creating animals!");
   } catch (error) {
@@ -154,9 +163,21 @@ async function createInitialReservations() {
       end_date: "2025-08-30",
     });
     await createReservation({
+      user_id: users[0].id,
+      animal_id: animals[1].id,
+      start_date: "2025-04-10",
+      end_date: "2025-07-14",
+    });
+    await createReservation({
+      user_id: users[0].id,
+      animal_id: animals[2].id,
+      start_date: "2025-04-10",
+      end_date: "2025-06-01",
+    });
+    await createReservation({
       user_id: users[1].id,
       animal_id: animals[1].id,
-      start_date: "2025-05-15",
+      start_date: "2025-07-15",
       end_date: "2025-09-15",
     });
     await createReservation({
