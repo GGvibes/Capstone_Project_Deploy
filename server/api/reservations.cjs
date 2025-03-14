@@ -12,7 +12,6 @@ require("dotenv").config();
 reservationsRouter.get("/", requireUser, async (req, res, next) => {
   try {
     const animals = await getAllReservations();
-    console.log(animals);
     res.send({
       animals,
     });

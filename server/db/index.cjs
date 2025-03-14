@@ -110,16 +110,16 @@ async function getUserById(userId) {
  * ANIMAL Methods
  */
 
-async function createAnimals({ type, num_animals, breed }) {
+async function createAnimals({ type, num_animals, breed, animal_img_url }) {
   const {
     rows: [animal],
   } = await client.query(
     `
-    INSERT INTO animals(type, num_animals, breed) 
-    VALUES($1, $2, $3)
+    INSERT INTO animals(type, num_animals, breed,animal_img_url) 
+    VALUES($1, $2, $3, $4)
     RETURNING *;
   `,
-    [type, num_animals, breed]
+    [type, num_animals, breed, animal_img_url]
   );
 
   return animal;
@@ -127,7 +127,7 @@ async function createAnimals({ type, num_animals, breed }) {
 
 async function getAllAnimals() {
   const { rows } = await client.query(`
-    SELECT id, type, num_animals, breed
+    SELECT id, type, num_animals, breed, animal_img_url
     FROM animals;
   `);
   return rows;
@@ -140,7 +140,7 @@ async function getAnimalById(animal_id) {
       rows: [animal],
     } = await client.query(
       `
-      SELECT id, type, num_animals, breed
+      SELECT id, type, num_animals, breed, animal_img_url
       FROM animals
       WHERE id=$1
     `,

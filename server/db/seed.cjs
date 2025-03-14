@@ -47,7 +47,8 @@ async function createTables() {
           id SERIAL PRIMARY KEY,
           num_animals INT NOT NULL,
           type VARCHAR(255) NOT NULL,
-          breed VARCHAR(255) NOT NULL
+          breed VARCHAR(255) NOT NULL,
+          animal_img_url TEXT
         );
       `);
 
@@ -107,18 +108,21 @@ async function createInitialAnimals() {
 
     await createAnimals({
       type: "chicken",
-      num_animals: 4,
+      num_animals: 3,
       breed: "easter eggers",
+      animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
     });
     await createAnimals({
       type: "sheep",
       num_animals: 2,
       breed: "katahdin",
+      animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
     });
     await createAnimals({
       type: "cow calf pair",
       num_animals: 2,
       breed: "jersey",
+      animal_img_url: "https://www.chickensforbackyards.com/wp-content/uploads/2017/10/320Easter20Egger1.jpg"
     });
 
     console.log("Finished creating animals!");
