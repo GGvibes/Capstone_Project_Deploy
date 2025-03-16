@@ -19,9 +19,21 @@ function App() {
       .then((data) => console.log(data));
   }, []);
 
+  const [userId, setUserId] = useState();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loggedOut, setLoggedOut] = useState(false);
   const navigate = useNavigate();
+
+  const fetchUserDetails = async () => {
+    const response = await fetch("http://localhost:5000/api/users/me", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await response.json();
+    setUserId(data.id); 
+  };
+  fetchUserDetails();
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -85,8 +97,14 @@ function App() {
               path="/availableanimals"
               element={<AvailableAnimals token={token} />}
             ></Route>
-            <Route path="/animals/:id" element={<AnimalDetails />}></Route>
+            <Route 
+              path="/animals/:id" 
+              element={<AnimalDetails />}
+              userId={userId}
+              token={token}
+            ></Route>
             <Route token={token} path="/reservations/:id" element={<EditReservation />}></Route>
+              
           </Route>
         </Routes>
       </main>

@@ -130,10 +130,56 @@ async function createInitialAnimals() {
       breed: "Huacaya",
       animal_img_url: "https://www.marylandzoo.org/wp-content/uploads/2017/10/alpaca_web.jpg"
     });
-
-
-    
-
+    await createAnimals({
+      type: "Chicken",
+      num_animals: 3,
+      breed: "Buff Orpington",
+      animal_img_url: "https://i.pinimg.com/originals/fb/d1/92/fbd192e5b8bbbde2c8e45be1ea4773af.jpg"
+    });
+    await createAnimals({
+      type: "Sheep",
+      num_animals: 3,
+      breed: "Merino",
+      animal_img_url: "https://images.freeimages.com/images/large-previews/e1a/merino-sheep-1337359.jpg"
+    });
+    await createAnimals({
+      type: "Cow",
+      num_animals: 3,
+      breed: "Galloway",
+      animal_img_url: "https://www.miniaturegalloway.com.au/images/Storm_Chaser_paddie_2022_06_17_1.jpg"
+    });
+    await createAnimals({
+      type: "Pig",
+      num_animals: 3,
+      breed: "Mixed Breed",
+      animal_img_url: "https://i2.wp.com/onpasture.com/wp-content/uploads/2014/04/pasture.jpg"
+    });
+    await createAnimals({
+      type: "Pig",
+      num_animals: 3,
+      breed: "Berkshire",
+      animal_img_url: "https://www.texasridge.com/uploads/1/1/0/7/11074616/published/img-5541.jpg?1675795567"
+    });
+    await createAnimals({
+      type: "Chicken",
+      num_animals: 3,
+      breed: "Unkown",
+      animal_img_url: "https://rafterwranch.net/wp-content/uploads/2019/06/pasture-raised-chicken-1-1080x675.jpg"
+    });
+    await createAnimals({
+      type: "Chicken",
+      num_animals: 15,
+      breed: "Unkown",
+      animal_img_url: " https://i.pinimg.com/736x/aa/cd/4e/aacd4e9d8ba4c4f99fa90540dfba3269--rhode-island-red-good-girl.jpg"
+    });
+    await createAnimals({
+      type: "Cow Calf Pair",
+      num_animals: 2,
+      breed: "Highland",
+      animal_img_url: " https://peachcreekfarm.us/NewSite/wp-content/uploads/2021/05/IMG_0190-600x600.jpeg"
+    });
+   
+  
     console.log("Finished creating animals!");
   } catch (error) {
     console.error("Error creating animals!");

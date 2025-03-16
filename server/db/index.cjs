@@ -156,30 +156,7 @@ async function getAnimalById(animal_id) {
     throw error;
   }
 }
-/**
- * RSERVATION Methods
- */
 
-// async function createReservation({ user_id, animal_id, start_date, end_date }) {
-//   try {
-//     console.log("Creating reservation for user:", user_id, "animal:", animal_id);  //Debugging
-//     const {
-//       rows: [reservation],
-//     } = await client.query(
-//       `
-//     INSERT INTO reservations(user_id, animal_id, start_date, end_date)
-//     VALUES($1, $2, $3, $4)
-//     RETURNING *;
-//   `,
-//       [user_id, animal_id, start_date, end_date]
-//     );
-//     console.log("Successfully created reservation:", reservation); //Debugging
-//     return reservation;
-//   } catch (error) {
-//     console.error("Error creating reservation:", error.message);
-//     throw error;
-//   }
-// }
 
 const createReservation = async ({
   user_id,

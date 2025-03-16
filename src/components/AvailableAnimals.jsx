@@ -4,19 +4,30 @@ import { Link } from "react-router-dom";
 export default function AvailableAnimals({ token }) {
   const [animals, setAnimals] = useState([]);
   const [error, setError] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const searchAnimals = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredAnimals = animals.filter((animal) => {
+        return Object.values(animal)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(filteredAnimals);
+    } else {
+      setFilteredResults(animals);
+    }
+  };
 
   useEffect(() => {
     async function fetchAnimals() {
-      if (!token) {
-        setError("Please sign up to be a host to view available animals!");
-        return;
-      }
 
       try {
         const response = await fetch("http://localhost:5000/api/animals", {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
         });
 
@@ -33,7 +44,6 @@ export default function AvailableAnimals({ token }) {
     fetchAnimals();
   }, [token]);
 
-
   if (error) {
     return <p style={{ margin: "30px" }}>{error}</p>;
   }
@@ -45,25 +55,35 @@ export default function AvailableAnimals({ token }) {
   return (
     <div>
       <div className="availableAnimalsPage">
-        <h2 style={{marginLeft:"50px"}}>Available Animals:</h2>
+        <h3 style={{ marginLeft: "50px" }}>Search Animals here:</h3>
+        <input
+          style={{ marginLeft: "50px" }}
+          className="searchBox"
+          icon="search"
+          placeholder="Search..."
+          onChange={(e) => searchAnimals(e.target.value)}
+        ></input>
+        {searchInput.trim() && filteredResults.length === 0 && (
+          <h3 className="noAnimalsFound">No Animals match your search.</h3>
+        )}
+        <h2 style={{ marginLeft: "50px" }}>Available Animals:</h2>
         <div className="animals-container">
-          {animals.length > 0 ? (
-            animals.map((animal) => (
-              <div className="animals-card" key={animal.id}>
-                <p>Type: {animal.type}</p>
-                <p>Number of animals: {animal.num_animals}</p>
-                <img
-                  style={{ width: "200px", margin: "20px" }}
-                  src={animal.animal_img_url}
-                ></img>
-                <Link to={`/animals/${animal.id}`}>
-                  <button>See Details</button>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p>No animals available.</p>
-          )}
+          {(searchInput.trim() && filteredResults.length > 0
+            ? filteredResults
+            : animals
+          ).map((animal) => (
+            <div className="animals-card" key={animal.id}>
+              <p>Type: {animal.type}</p>
+              <p>Number of animals: {animal.num_animals}</p>
+              <img
+                style={{ width: "200px", maxHeight:"200px", margin: "20px" }}
+                src={animal.animal_img_url}
+              ></img>
+              <Link to={`/animals/${animal.id}`}>
+                <button>See Details</button>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
