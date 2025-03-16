@@ -246,6 +246,7 @@ async function getReservationById(reservation_id) {
 
 async function getReservationsByUser(user_id) {
   try {
+    console.log("Fetching reservations for user_id:", user_id); //debugging
     const { rows } = await client.query(
       `
       SELECT id, user_id, animal_id, start_date, end_date
@@ -254,6 +255,8 @@ async function getReservationsByUser(user_id) {
     `,
       [user_id]
     );
+
+    console.log("Query result:", rows); //Debug
 
     if (rows.length === 0) {
       throw {
@@ -333,9 +336,16 @@ async function deleteReservation({ user_id, id }) {
         FROM reservations 
         WHERE user_id=$1 AND id=$2
       `;
-    await client.query(SQL, [user_id, id]);
+   const result = await client.query(SQL, [user_id, id]);
+
+   if (result.rowCount === 0) {
+    throw new Error("Reservation not found or not authorized.");
+
+    return result.rows[0];
+  }
   } catch (error) {
-    next(error);
+    console.error("error deleting reservation", error);
+    throw error;
   }
 }
 

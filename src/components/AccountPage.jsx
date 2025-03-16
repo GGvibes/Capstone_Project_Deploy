@@ -30,8 +30,10 @@ export default function AccountPage({ token }) {
         }
 
         const result = await response.json();
+        console.log("Result",result);
         setAccountData(result);
         const userId = result.id;
+        console.log ("userID",userId)
         const reservationsResponse = await fetch(
           `http://localhost:5000/api/reservations/lookupbyuser/${userId}`,
           {
@@ -41,6 +43,7 @@ export default function AccountPage({ token }) {
             },
           }
         );
+        console.log(reservationsResponse)
         const reservationsResult = await reservationsResponse.json();
         setReservations(reservationsResult);
       } catch (err) {

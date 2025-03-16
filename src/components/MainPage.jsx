@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-
 export default function MainPage() {
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="content">
@@ -14,7 +12,12 @@ const navigate = useNavigate();
             Turn Your Land into a Living Pasture – Host Animals, Enrich Your
             Land, and Support Local Agriculture.
           </h3>
-          <button onClick={()=>navigate("/signup")} className="becomeHostButton">Become a Host</button>
+          <button
+            onClick={() => navigate("/signup")}
+            className="becomeHostButton"
+          >
+            Become a Host
+          </button>
         </header>
         <div className="mainBodyPic">
           <img
@@ -78,12 +81,11 @@ const navigate = useNavigate();
                 alt="cows-on-pasture"
                 src="/assets/cowsonpasture.png"
               ></img>
-              <button className="learnMoreButton">Learn More</button>
             </div>
           </div>
         </div>
+        <button className="learnMoreButton">Learn More</button>
       </div>
-      
     </div>
   );
 }

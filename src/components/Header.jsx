@@ -77,7 +77,7 @@ export default function Header({ token ,logout }) {
                   onClick={handleLinkClick}
                   style={{ textDecoration: "none" }}
                 >
-                  <div className="menu-item">Sign Up</div>
+                  <div className="menu-item">Join as a Host</div>
                 </Link>
                 <Link
                   to={"/login"}

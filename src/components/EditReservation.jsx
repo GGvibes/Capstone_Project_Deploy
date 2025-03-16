@@ -13,10 +13,8 @@ export default function EditReservation() {
   const navigate = useNavigate();
 
   const editDatesClick = () => {
-    setShowDateForm(prevState => !prevState);
+    setShowDateForm((prevState) => !prevState);
   };
-
-  const handleDeleteClick = () => {};
 
   useEffect(() => {
     async function fetchReservation() {
@@ -66,13 +64,13 @@ export default function EditReservation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("save button clicked!")
+    console.log("save button clicked!");
     const token = localStorage.getItem("token");
     const updatedDates = {
       start_date: new Date(newStartDate).toISOString().split("T")[0],
-      end_date: new Date (newEndDate).toISOString().split("T")[0],
+      end_date: new Date(newEndDate).toISOString().split("T")[0],
     };
-    
+
     try {
       const response = await fetch(
         `http://localhost:5000/api/reservations/${reservation.id}`,
@@ -93,6 +91,39 @@ export default function EditReservation() {
       alert("Reservation updated successfully!");
     } catch (err) {
       console.error("Error updating reservation:", err);
+    }
+  };
+
+  const handleCancelClick = async (reservationid) => {
+    const isSure = window.confirm(
+      "Are you sure you want to cancel this reservation? This action cannot be undone."
+    );
+
+    if (isSure) {
+      deleteReservation(reservationid);
+    } else {
+      console.log("Reservation deletion canceled.");
+    }
+  };
+
+  const deleteReservation = async (id) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`http://localhost:5000/api/reservations/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      if (response.ok) {
+        navigate("/");
+      } else {
+        console.error ("Error deleting reservation", data.error)
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -149,7 +180,7 @@ export default function EditReservation() {
       )}
       <div>
         <button
-          onClick={handleDeleteClick}
+          onClick={() => handleCancelClick(reservation.id)}
           style={{ margin: "5px", padding: "5px" }}
         >
           Cancel Reservation

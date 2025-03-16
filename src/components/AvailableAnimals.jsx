@@ -45,7 +45,7 @@ export default function AvailableAnimals({ token }) {
   return (
     <div>
       <div className="availableAnimalsPage">
-        <h2>Available Animals:</h2>
+        <h2 style={{marginLeft:"50px"}}>Available Animals:</h2>
         <div className="animals-container">
           {animals.length > 0 ? (
             animals.map((animal) => (

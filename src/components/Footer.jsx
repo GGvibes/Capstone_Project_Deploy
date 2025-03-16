@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function Footer({ token }) {
+export default function Footer({ token, logout }) {
   const navigate = useNavigate();
   return (
     <>
@@ -21,6 +21,15 @@ export default function Footer({ token }) {
               {!token && <li onClick={() => navigate("/login")}>Log In</li>}
               {!token && <li onClick={() => navigate("/signup")}>Sign Up</li>}
               {token && <li onClick={() => navigate("/account")}>Account</li>}
+              {localStorage.getItem("token") && (
+                <li
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </li>
+              )}
             </ul>
             <ul className="column2">
               <li
@@ -30,12 +39,12 @@ export default function Footer({ token }) {
                 About Us
               </li>
               <li onClick={() => navigate("/availableanimals")}>
-                Available Animals
+                Host Animals
               </li>
-              <li>Learn About Hosting</li>
+
               <li>
                 <a
-                  style={{ textDecoration: "none", color: "rgb(80, 80, 80)"}}
+                  style={{ textDecoration: "none", color: "rgb(80, 80, 80)" }}
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://gardens.theownerbuildernetwork.co/2023/11/21/sheep-as-lawn-mowers/"

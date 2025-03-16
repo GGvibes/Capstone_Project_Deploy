@@ -6,7 +6,8 @@ const {
   createReservation,
   getReservationsByUser,
   getReservationsByAnimal,
-  editReservation
+  editReservation,
+  deleteReservation
 } = require("../db/index.cjs");
 const { requireUser }= require("./utils")
 require("dotenv").config();
@@ -23,11 +24,23 @@ reservationsRouter.get("/", requireUser, async (req, res, next) => {
 });
 
 reservationsRouter.get("/lookupbyuser/:user_id",requireUser, async (req, res, next) => {
+
+  console.log("Received GET request for user reservations. User ID:", req.params.user_id); //Debug 
+
     try {
       const reservations = await getReservationsByUser(req.params.user_id);
+
+      console.log("Reservations found:", reservations); //Debug
+
       res.json(reservations);
     } catch (error) {
-      next(error);
+      console.error("Error in lookup by user", error);
+
+      if (error.name === "ReservationsNotFoundError") {
+        return res.status(404).json({ error: error.message });
+      }
+
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
@@ -90,6 +103,22 @@ reservationsRouter.post("/", requireUser, async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+});
+
+reservationsRouter.delete("/:id", requireUser, async (req, res, next) => {
+  const user_id = req.user.id;
+  const { id } = req.params;
+
+  console.log(`Received DELETE request for reservation ID: ${id} by user ${user_id}`);  // Debugging
+
+  try {
+    const deletedReservation = await deleteReservation({ user_id, id});
+
+    res.json({ message: "Reservation deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting reservation:", error); // Debugging
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

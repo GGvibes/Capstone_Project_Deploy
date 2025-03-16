@@ -25,7 +25,7 @@ function Layout({token, logout}) {
       <main className="content">
         <Outlet /> 
       </main>
-      <Footer token={token} />
+      <Footer logout={logout} token={token} />
     </div>
   );
 }
