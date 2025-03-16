@@ -30,10 +30,10 @@ export default function AccountPage({ token }) {
         }
 
         const result = await response.json();
-        console.log("Result",result);
+
         setAccountData(result);
         const userId = result.id;
-        console.log ("userID",userId)
+
         const reservationsResponse = await fetch(
           `http://localhost:5000/api/reservations/lookupbyuser/${userId}`,
           {
@@ -43,7 +43,7 @@ export default function AccountPage({ token }) {
             },
           }
         );
-        console.log(reservationsResponse)
+
         const reservationsResult = await reservationsResponse.json();
         setReservations(reservationsResult);
       } catch (err) {
@@ -95,7 +95,7 @@ export default function AccountPage({ token }) {
         <p>Email: {accountData.email}</p>
         <p>Address: {accountData.address}</p>
         <div>
-          <h3 style= {{marginTop:"50px"}}>Reservations:</h3>
+          <h3 style={{ marginTop: "50px" }}>Reservations:</h3>
           {reservations?.length > 0 ? (
             reservations.map((reservation) => {
               const animal = animals[reservation.animal_id];
@@ -124,7 +124,14 @@ export default function AccountPage({ token }) {
                       End Date:{" "}
                       {format(new Date(reservation.end_date), "MMMM d, yyyy")}
                     </p>
-                    <button onClick={() => navigate(`/reservations/${reservation.id}`)} style={{padding:"8px"}}>Edit Reservation</button>
+                    <button
+                      onClick={() =>
+                        navigate(`/reservations/${reservation.id}`)
+                      }
+                      style={{ padding: "8px" }}
+                    >
+                      Edit Reservation
+                    </button>
                   </div>
                 </div>
               );

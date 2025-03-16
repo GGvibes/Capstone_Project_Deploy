@@ -13,11 +13,6 @@ import AnimalDetails from "./components/AnimalDetails";
 import EditReservation from "./components/EditReservation";
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:5000/api/users")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
 
   const [userId, setUserId] = useState();
   const [token, setToken] = useState(localStorage.getItem("token"));
