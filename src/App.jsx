@@ -94,7 +94,7 @@ function App() {
             ></Route>
             <Route 
               path="/animals/:id" 
-              element={<AnimalDetails />}
+              element={<AnimalDetails userId={userId} token={token}/>}
               userId={userId}
               token={token}
             ></Route>

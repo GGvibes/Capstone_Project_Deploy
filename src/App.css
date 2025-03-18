@@ -477,14 +477,15 @@ footer {
 }
 
 .accountDetails {
-  margin: 30px;
+  margin-left: 30px;
 }
 
-.reservations_container {
+.reservations-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .reservation-card {
@@ -494,6 +495,7 @@ footer {
   padding-left: 10px;
   width: 250px;
   padding-bottom: 10px;
+  text-align: center;
 }
 
 button:hover {

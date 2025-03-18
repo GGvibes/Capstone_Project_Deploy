@@ -30,9 +30,9 @@ export default function AccountPage({ token }) {
         }
 
         const result = await response.json();
-
-        setAccountData(result);
         const userId = result.id;
+        setAccountData(result);
+        console.log(result)
 
         const reservationsResponse = await fetch(
           `http://localhost:5000/api/reservations/lookupbyuser/${userId}`,
@@ -96,12 +96,13 @@ export default function AccountPage({ token }) {
         <p>Address: {accountData.address}</p>
         <div>
           <h3 style={{ marginTop: "50px" }}>Reservations:</h3>
+
           {reservations?.length > 0 ? (
-            reservations.map((reservation) => {
-              const animal = animals[reservation.animal_id];
-              return (
-                <div className="reservations-container" key={reservation.id}>
-                  <div className="reservation-card">
+            <div className="reservations-container">
+              {reservations.map((reservation) => {
+                const animal = animals[reservation.animal_id];
+                return (
+                  <div key={reservation.id} className="reservation-card">
                     {animal ? (
                       <>
                         <p>Type: {animal.type}</p>
@@ -133,9 +134,9 @@ export default function AccountPage({ token }) {
                       Edit Reservation
                     </button>
                   </div>
-                </div>
-              );
-            })
+                );
+              })}
+            </div>
           ) : (
             <p>You currently have no reservations.</p>
           )}

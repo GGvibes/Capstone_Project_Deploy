@@ -69,7 +69,7 @@ function AnimalDetails({ token, userId }) {
       });
 
       const result = await response.json();
-      console.log(result);
+
       if (!response.ok) {
         setError(result.message || "An error occurred making the reservation.");
         return;
@@ -89,7 +89,6 @@ function AnimalDetails({ token, userId }) {
 
   return (
     <div className="animal-details-page">
-      
       <h2>Animal Information:</h2>
       <p>{animal.type}</p>
       <p>Breed: {animal.breed}</p>
@@ -100,37 +99,45 @@ function AnimalDetails({ token, userId }) {
         style={{ width: "300px" }}
       />
       <p>Would you like to host these animals?</p>
-      <p>Make a Reservation:</p>
-      <form className="dates-form">
-        <label>
-          Start Date:
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          End Date:
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </label>
-        <br />
-        <button
-          style={{ margin: "20px" }}
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-          type="submit"
-        >
-          {isSubmitting ? "Submitting..." : "Save Reservation"}
-        </button>
-      </form>
-      {error && <p className="error-message">{error}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      {!token && <Link to="/signup">Please Sign Up to be a Host</Link>}
+      {token && (
+        <>
+          <p>Make a Reservation:</p>
+
+          <form className="dates-form">
+            <label>
+              Start Date:
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              End Date:
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </label>
+            <br />
+            {error && <p className="error-message">{error}</p>}
+            {successMessage && (
+              <p className="success-message">{successMessage}</p>
+            )}
+            <button
+              style={{ margin: "20px" }}
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? "Submitting..." : "Save Reservation"}
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 }
