@@ -29,6 +29,10 @@ server.use((req, res, next) => {
   next();
 });
 
+server.get("/", (req, res) => {
+  res.send("Server is live! 🚀");
+});
+
 server.get("/test", (req, res)=> {
   res.json({message: "test API route"})
 })
