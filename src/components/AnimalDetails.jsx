@@ -26,7 +26,7 @@ function AnimalDetails({ token, userId }) {
   useEffect(() => {
     async function fetchAnimalDetails() {
       try {
-        const response = await fetch(`${import.meta.env.API_URL}/api/animals/${id}`);
+        const response = await fetch(`${import.meta.env.API_URL}/animals/${id}`);
         if (!response.ok) throw new Error("Failed to fetch animal details.");
 
         const data = await response.json();
@@ -54,7 +54,7 @@ function AnimalDetails({ token, userId }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${import.meta.env.API_URL}/api/reservations`, {
+      const response = await fetch(`${import.meta.env.API_URL}/reservations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

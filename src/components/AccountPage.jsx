@@ -18,7 +18,7 @@ export default function AccountPage({ token }) {
       }
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.API_URL}/api/users/me`, {
+        const response = await fetch(`${import.meta.env.API_URL}/users/me`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

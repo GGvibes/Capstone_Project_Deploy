@@ -24,7 +24,7 @@ export default function Login({ setToken }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${import.meta.env.API_URL}/api/users/login`, {
+      const response = await fetch(`${import.meta.env.API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

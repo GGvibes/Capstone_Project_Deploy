@@ -25,7 +25,7 @@ export default function AvailableAnimals({ token }) {
     async function fetchAnimals() {
 
       try {
-        const response = await fetch(`${import.meta.env.API_URL}/api/animals`, {
+        const response = await fetch(`${import.meta.env.API_URL}/animals`, {
           headers: {
             "Content-Type": "application/json"
           },
