@@ -6,9 +6,7 @@ dotenv.config();
 const { Client } = pg;
 
 const databaseURL =
-  process.env.DATABASE_URL ||
-  "postgres://postgres:juniper23@localhost:5432/capstone_project";
-
+  process.env.DATABASE_URL;
 const client = new Client({
   connectionString: databaseURL,
   ssl:
