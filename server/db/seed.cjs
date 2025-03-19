@@ -204,33 +204,21 @@ async function createInitialReservations() {
     }
     await createReservation({
       user_id: users[0].id,
-      animal_id: animals[0].id,
-      start_date: "2025-04-30",
-      end_date: "2025-08-30",
-    });
-    await createReservation({
-      user_id: users[0].id,
-      animal_id: animals[1].id,
-      start_date: "2025-04-10",
-      end_date: "2025-07-14",
-    });
-    await createReservation({
-      user_id: users[0].id,
       animal_id: animals[2].id,
       start_date: "2025-04-10",
-      end_date: "2025-06-01",
+      end_date: "2025-05-01",
     });
     await createReservation({
       user_id: users[1].id,
       animal_id: animals[1].id,
       start_date: "2025-07-15",
-      end_date: "2025-09-15",
+      end_date: "2025-08-15",
     });
     await createReservation({
       user_id: users[2].id,
       animal_id: animals[2].id,
-      start_date: "2025-06-01",
-      end_date: "2025-09-01",
+      start_date: "2025-09-01",
+      end_date: "2025-09-10",
     });
 
     console.log("Finished creating reservations!");

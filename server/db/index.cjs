@@ -165,23 +165,35 @@ const createReservation = async ({
   end_date,
 }) => {
   try {
-    await client.query("BEGIN"); // Start transaction
+    await client.query("BEGIN"); 
+    const conflictQuery = `
+    SELECT * FROM reservations
+    WHERE animal_id = $1
+    AND (start_date < $3 AND end_date > $2)
+  `;
 
-    const {
-      rows: [reservation],
-    } = await client.query(
-      `
-      INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
-      VALUES($1, $2, $3, $4)
-      RETURNING *;
+  const { rows: conflicts } = await client.query(conflictQuery, [animal_id, start_date, end_date]);
+
+  if (conflicts.length > 0) {
+    await client.query("ROLLBACK"); 
+    throw new Error("This animal is already reserved for the selected time.");
+  }
+
+  
+  const {
+    rows: [reservation],
+  } = await client.query(
+    `
+    INSERT INTO reservations(user_id, animal_id, start_date, end_date) 
+    VALUES($1, $2, $3, $4)
+    RETURNING *;
     `,
-      [user_id, animal_id, start_date, end_date]
-    );
-
-    await client.query("COMMIT"); // Commit transaction
+    [user_id, animal_id, start_date, end_date]
+  );
+    await client.query("COMMIT"); 
     return reservation;
   } catch (error) {
-    await client.query("ROLLBACK"); // Rollback on error
+    await client.query("ROLLBACK"); 
     console.error("Error creating reservation:", error.message);
     throw error;
   }

@@ -116,9 +116,9 @@ export default function EditReservation() {
           Authorization: `Bearer ${token}`,
         },
       });
-      
+
       if (response.ok) {
-        navigate("/");
+        navigate("/account");
       } else {
         console.error ("Error deleting reservation", data.error)
       }

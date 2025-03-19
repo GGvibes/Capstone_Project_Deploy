@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 
 function AnimalDetails({ token, userId }) {
@@ -71,7 +71,8 @@ function AnimalDetails({ token, userId }) {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.message || "An error occurred making the reservation.");
+        console.log("Response result", result)
+        setError(result.message || result.error || "An error occurred making the reservation.");
         return;
       }
 

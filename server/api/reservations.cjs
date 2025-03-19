@@ -102,7 +102,11 @@ reservationsRouter.post("/", requireUser, async (req, res, next) => {
       reservation,
     });
   } catch (error) {
-    next(error);
+    console.error("Error creating reservation:", error.message);
+    
+    if (!res.headersSent) { 
+      res.status(400).json({ message: error.message });
+    }
   }
 });
 
