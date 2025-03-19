@@ -33,7 +33,7 @@ export default function Signup({ setToken }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/signup", {
+      const response = await fetch(`${import.meta.env.API_URL}/api/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
