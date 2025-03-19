@@ -7,7 +7,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node index.cjs"
+    "start": "node index.html"
   },
   "dependencies": {
     "crypto": "^1.0.1",
