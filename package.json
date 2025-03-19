@@ -10,6 +10,7 @@
     "start": "node src/main.jsx"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
