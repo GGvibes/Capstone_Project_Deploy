@@ -29,6 +29,8 @@ server.use((req, res, next) => {
   next();
 });
 
+server.use(express.static(path.join(__dirname, 'client', 'dist')));
+
 server.get("/", (req, res) => {
   res.send("Server is live! 🚀");
 });
