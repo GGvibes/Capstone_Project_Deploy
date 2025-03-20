@@ -1,0 +1,538 @@
+body,
+html {
+  margin: 0;
+  font-family: "Inter", "Lora", "Merriweather";
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  display:flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+/* Header */
+.logo {
+  width: 80px;
+  margin-top: 40px;
+  display: flex;
+}
+
+.home-link {
+  position: absolute;
+  right: 111px;
+  top: 53px;
+  width: 90px;
+  color: rgb(111, 111, 111);
+}
+.home-link:hover {
+  cursor: pointer;
+}
+
+.header {
+  margin-left: 50px;
+  font-family: "Inter", "Lora", "Merriweather";
+}
+
+.learnMore {
+  position: absolute;
+  right: 111px;
+  top: 53px;
+  width: 90px;
+  color: rgb(111, 111, 111);
+}
+.learnMore:hover {
+  cursor: pointer;
+}
+/* Footer styling */
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-container {
+  width: 100%;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  
+}
+
+.footer-container hr {
+  width: 90%;
+  height: 2px;
+  background-color: #ccc;
+  border: none;
+  margin-top: 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 200px;
+  margin: 30px;
+  color: rgb(80, 80, 80);
+}
+
+.footer-title {
+  margin-top: -10px;
+  margin-left: 20px;
+  font-weight: 400;
+}
+
+.column1 {
+  list-style: none;
+}
+
+.column2 {
+  list-style: none;
+}
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 70px;
+  margin-left: auto;
+  margin-top: 0px;
+  margin-right: 80px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.footer-links li {
+  list-style: none;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* About Page  */
+.aboutPage {
+  margin-left: 50px;
+}
+
+.aboutPg {
+  width: 38%;
+  display: absolute;
+  left: 0;
+}
+
+.aboutTitle {
+  color: rgb(129, 128, 128);
+  font-weight: 400;
+}
+/* Main Page Styling */
+.title {
+  font-size: 6vh;
+}
+
+.App {
+  font-family: "Inter", "Lora", "Merriweather";
+}
+
+.titlesnippet {
+  font-size: 17px;
+  font-weight: 300;
+  color: rgb(91, 90, 90);
+}
+
+.becomeHostButton {
+  background-color: black;
+  height: 5vh;
+  width: 20vw;
+  color: white;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  white-space: nowrap;
+  min-width: 130px;
+  min-height: 30px;
+  max-width: 180px;
+}
+
+.becomeHostButton:hover {
+  cursor: pointer;
+}
+
+.mainPage {
+    position: relative;
+    min-height: calc(100vh - 100px); 
+}
+.learnMoreButton {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: black;
+  height: 5vh;
+  width: 20vw;
+  color: white;
+  border-radius: 10px;
+  font-size: 15px;
+  min-width: 130px;
+  min-height: 30px;
+  border: none;
+  max-width: 180px;
+
+}
+
+.mainBodyPic {
+  display: flex;
+}
+
+.lambPicMain {
+  width: 80vw;
+  margin: auto;
+  padding: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainBodyPg {
+  display: block;
+  width: 90vw;
+  margin-left: 20px;
+  margin-bottom: 100px;
+}
+
+.bottomBody {
+  display: block;
+  width: 90vw;
+  margin-left: 20px;
+  margin-bottom: 100px;
+}
+
+.mainBodyTitle {
+  display: block;
+  width: 90vw;
+  margin-left: 20px;
+}
+
+.chickenPicMain {
+  width: 100vw;
+}
+.cowPgMain {
+  float: left;
+  width: 30vw;
+  padding-bottom: 50px;
+}
+.cowsPicMain {
+  float: right;
+  width: 50vw;
+}
+
+.twoChickens {
+  position: absolute;
+  right: 0;
+  top: 165px;
+  margin: 20px;
+  width: 50%;
+  display: flex;
+}
+/* Dropdown Menu Styling */
+
+.dropdown-container {
+  position: absolute;
+  right: 50px;
+  top: 40px;
+}
+
+.menu-image {
+  margin-left: -2px;
+  margin-top: -2px;
+  width: 50px;
+  height: 50px;
+}
+
+.dropdown-menu {
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  font-family: "Inter", "Lora", "Merriweather";
+}
+
+.dropdown-menu:hover {
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3), 0 0 4px 2px rgba(141, 138, 144, 0.9);
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: -162px;
+  background: white;
+  font-family: "Inter", "Lora", "Merriweather";
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 1000;
+  text-align: center;
+  margin-top: 20px;
+  height: 130px;
+}
+
+
+
+.menu-item {
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  width: 190px;
+  margin-top: 10px;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
+}
+
+.dropdown-content hr {
+  border: none;
+  height: 1px;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 8px 0;
+}
+/* Contact Form styling */
+.contact-form {
+  width: 80%;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin: 20px;
+}
+
+.submit-button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 98%;
+  height: 60px;
+  display: block;
+  margin-top: 30px;
+  margin-left: 17px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.submit-button:hover {
+  background-color: rgb(47, 47, 47);
+  cursor: pointer;
+}
+
+.name-fields {
+  display: flex;
+  gap: 20px;
+}
+
+.name-fields .form-group {
+  flex: 1;
+}
+
+.contact-form input {
+  margin-top: 20px;
+  height: 30px;
+  box-shadow: 0px 0px 6px rgba(52, 52, 52, 0.755);
+  border-radius: 10px;
+  border: none;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 8px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.message-field {
+  font-family: "Inter", "Lora", "Merriweather";
+  box-shadow: 0px 0px 6px rgba(52, 52, 52, 0.755);
+  border-radius: 10px;
+  border: none;
+  margin-top: 20px;
+}
+
+/* Login Page */
+
+.login-container {
+  display: grid;
+  place-items: center;
+  height: 60vh;
+}
+
+.login-form {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-top: 20px;
+}
+
+.login-form input {
+  margin: 20px;
+  padding: 10px;
+}
+
+.login-button {
+  width: 80%;
+  margin: auto;
+  background-color: rgb(251, 113, 78);
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 17px;
+}
+
+.signup-link {
+  margin-top: 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: aliceblue;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.signup-link:hover {
+  cursor: pointer;
+}
+
+/* Signup page */
+
+.signup-container {
+  width: 80%;
+  max-width: 500px;
+  background: white;
+
+}
+
+.signup-form {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+}
+
+.signup-form input {
+  padding: 5px;
+  margin: 10px;
+  width: 80%;
+  box-sizing: border-box;
+}
+
+.signup-form label {
+  margin-top: 20px;
+}
+
+.becomeHostInfo {
+  max-width: 1000px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+.accountDetails {
+  margin-left: 30px;
+}
+
+.reservations-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.reservation-card {
+  margin: 20px;
+  border: black 2px solid;
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 250px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.animals-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.animals-card {
+  margin: 20px;
+  border: black 2px solid;
+  border-radius: 10px;
+  padding-left: 10px;
+  text-align: left;
+  width: 250px;
+  padding-bottom: 10px;
+}
+
+.animal-details-page {
+  margin: 30px;
+}
+
+.edit-reservations-container {
+  display: block;
+  justify-content: center;
+  text-align: center;
+}
+
+.dates-form input {
+  margin: 5px;
+}
+
+.dates-form button {
+  margin: 5px;
+}
