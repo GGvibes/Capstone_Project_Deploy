@@ -18,7 +18,7 @@ export default function AccountPage({ token }) {
       }
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.API_URL}/users/me`, {
+        const response = await fetch(`${import.meta.env.VITE_VITE_}/users/me`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export default function AccountPage({ token }) {
         console.log(result)
 
         const reservationsResponse = await fetch(
-          `${import.meta.env.API_URL}/reservations/lookupbyuser/${userId}`,
+          `${import.meta.env.VITE_API_URL}/reservations/lookupbyuser/${userId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function AccountPage({ token }) {
         reservations.map(async (reservation) => {
           if (!fetchedAnimals[reservation.animal_id]) {
             const response = await fetch(
-              `${import.meta.env.API_URL}/animals/${reservation.animal_id}`
+              `${import.meta.env.VITE_API_URL}/animals/${reservation.animal_id}`
             );
             const animalData = await response.json();
             fetchedAnimals[reservation.animal_id] = animalData;

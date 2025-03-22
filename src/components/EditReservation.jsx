@@ -23,7 +23,7 @@ export default function EditReservation() {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `${import.meta.env.API_URL}/api/reservations/${id}`,
+          `${import.meta.env.VITE_API_URL}/api/reservations/${id}`,
           {
             method: "GET",
             headers: {
@@ -38,7 +38,7 @@ export default function EditReservation() {
         setReservation(data);
 
         const animalResponse = await fetch(
-          `${import.meta.env.API_URL}/api/animals/${data.animal_id}`,
+          `${import.meta.env.VITE_API_URL}/api/animals/${data.animal_id}`,
           {
             method: "GET",
             headers: {
@@ -92,7 +92,7 @@ export default function EditReservation() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.API_URL}/reservations/${reservation.id}`,
+        `${import.meta.env.VITE_API_URL}/reservations/${reservation.id}`,
         {
           method: "PUT",
           headers: {
