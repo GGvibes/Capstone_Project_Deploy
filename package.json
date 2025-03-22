@@ -7,7 +7,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node src/main.jsx"
+    "start": "vite preview"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
