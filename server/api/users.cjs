@@ -8,6 +8,7 @@ const { requireUser }= require("./utils")
 
 usersRouter.get("/me",requireUser, async (req, res, next) => {
   try {
+    console.log("Request received at /users/me");
     const user = await getUserById(req.user.id);
     res.json(user);
   } catch (error) {

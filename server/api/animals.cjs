@@ -6,7 +6,7 @@ require("dotenv").config();
 animalsRouter.get("/", async (req, res, next) => {
   try {
     const animals = await getAllAnimals();
-    console.log(animals)
+    console.log("Request received at /api/animals");
     res.send({
       animals,
     });
