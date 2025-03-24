@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon index.cjs",
-    "start": "node index.cjs"
+    "start": "node index.cjs",
+    "seed" : "node db/seed.cjs" 
   },
   "keywords": [],
   "author": "",

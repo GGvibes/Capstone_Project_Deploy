@@ -46,6 +46,7 @@ server.use("/api/animals", animalsRouter)
 server.use("/api/users", usersRouter)
 server.use("/api/reservations", reservationsRouter)
 
+console.log(process.env.DATABASE_URL);
 
 const { client } = require('./db/index.cjs');
 client.connect();
