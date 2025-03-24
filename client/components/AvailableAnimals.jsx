@@ -6,20 +6,22 @@ export default function AvailableAnimals({ token }) {
   const [error, setError] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  
   const searchAnimals = (searchValue) => {
     setSearchInput(searchValue);
-    if (searchInput !== "") {
-      const filteredAnimals = animals.filter((animal) => {
-        return Object.values(animal)
+    if (searchValue.trim() !== "") {
+      const filteredAnimals = animals.filter((animal) =>
+        Object.values(animal)
           .join(" ")
           .toLowerCase()
-          .includes(searchInput.toLowerCase());
-      });
+          .includes(searchValue.toLowerCase())
+      );
       setFilteredResults(filteredAnimals);
     } else {
       setFilteredResults(animals);
     }
   };
+  
 
   useEffect(() => {
     async function fetchAnimals() {
