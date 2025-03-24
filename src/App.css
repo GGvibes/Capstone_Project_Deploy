@@ -98,7 +98,7 @@ footer {
  .footer-title:hover {
   cursor: pointer;
  }
- 
+
 .column1 {
   list-style: none;
 }
@@ -706,7 +706,7 @@ button {
 }
 
 
-.cows-header {
+.header-img {
   position: absolute;
   top: 0;
   z-index: -100;
@@ -716,7 +716,7 @@ button {
   filter: brightness(70%);
 }
 
-.cows-header::after {
+.header-img::after {
   content: "";
   position: absolute;
   top: 0;

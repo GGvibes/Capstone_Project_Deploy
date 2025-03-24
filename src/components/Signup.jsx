@@ -73,6 +73,11 @@ export default function Signup({ setToken }) {
 
   return (
     <div className="content">
+      <img
+        className="header-img"
+        alt="sheep"
+        src="https://c.pxhere.com/photos/3b/f8/lamb_sheep_country_natural-602711.jpg!d"
+      ></img>
       <div className="becomeHostInfo">
         <h2>Become a Host</h2>
 
