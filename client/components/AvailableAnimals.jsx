@@ -6,7 +6,7 @@ export default function AvailableAnimals({ token }) {
   const [error, setError] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  
+
   const searchAnimals = (searchValue) => {
     setSearchInput(searchValue);
     if (searchValue.trim() !== "") {
@@ -26,7 +26,7 @@ export default function AvailableAnimals({ token }) {
   useEffect(() => {
     async function fetchAnimals() {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/animals`, {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/availableanimals`, {
           headers: {
             "Content-Type": "application/json",
           },
